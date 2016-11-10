@@ -135,12 +135,17 @@ module.exports = function () {
 
                 if (ctx.statusCode != 200) {
                     logConsole.error(ctx);
+                    logConsole.info("SENDSOAP: reject ");
+                    reject(ctx);
+                } else {
+                    logConsole.info("SENDSOAP: resolve ");
+                    resolve(ctx);
                 }
 
                 // console.log("messagse " + ctx.response);
                 // console.log(ctx.request);
                 // return ctx;
-                resolve(ctx);
+                
             });
 
         });
@@ -388,19 +393,19 @@ module.exports = function () {
         logConsole.info('WSCALL:endpoint:', endpoint);
 
         var xmlTagRisposta = ENV_ELEZIONI[operationId].xmlTagRisposta;
-        logConsole.info('SO:xmlTagRisposta:', xmlTagRisposta);
+        logConsole.info('WSCALL:xmlTagRisposta:', xmlTagRisposta);
 
         // load template
         var templateFileName = ENV_ELEZIONI[operationId].templateFileName;
-        logConsole.info('SO:template:', templateFileName);
+        logConsole.info('WSCALL:template:', templateFileName);
 
         var fileContents = '';
 
         try {
             fileContents = fs.readFileSync(templateFileName).toString();
         } catch (err) {
-            logConsole.error('SO:templateFileName: ' + templateFileName + ' NON TROVATA in configurazione');
-            res.status(500).send('SO:templateFileName: ' + templateFileName + ' NON TROVATA in configurazione');
+            logConsole.error('WSCALL:templateFileName: ' + templateFileName + ' NON TROVATA in configurazione');
+            res.status(500).send('WSCALL:templateFileName: ' + templateFileName + ' NON TROVATA in configurazione');
             return;
         }
 
@@ -419,15 +424,19 @@ module.exports = function () {
             logConsole.info('SO:sendSoap .....:');
             sendSoap(operationId, endpoint, xmlBuilded, keyFile).then(function (result) {
                 if (result.statusCode == 200) {
-                    logConsole.info('SO:sendXML OK:');
-                    logConsole.info('SO:sendXML statusCode:', result.statusCode);
+                    logConsole.info('WSCALL:sendXML OK:');
+                    logConsole.info('WSCALL:sendXML statusCode:', result.statusCode);
                     // console.log(result.response);
                     res.status(200).send(result);
                 } else {
                     log2fileError.error(result);
-                    logConsole.error('SO:ERROR:', error);
+                    logConsole.error('WSCALL:ERROR1:', error);
                     res.status(500).send('ERRORE GRAVE - VEDERE LOG.');
                 }
+            }).catch(function (err) {
+                    log2fileError.error(err);
+                    logConsole.error('WSCALL:ERROR2:', err);
+                    res.status(500).send(err);
             });
 
         } else {

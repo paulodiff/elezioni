@@ -1,17 +1,35 @@
 
 var ENV = require('./configENV.js');
 
-// configuration BRAV
+// file di configurazione
 module.exports = {
 
-    keyFile_produzione : './tmp/produzione2.pem',
-    keyFile_test : './tmp/test.pem',     
+    keyFile_produzione : './tmp/produzione2.pem', // certificato ambiente di produzione
+    keyFile_test : './tmp/test.pem',     // certificato ambiente di test
+    log_filename: 'ELEZIONI.log', // nome del file di log inserito nella cartella ./log
+    log_level : 'DEBUG',
+    // url MongoDB dove viene inviato un PUT con la risposta generata (per Monitoraggio) - opzionale
+    elastic_url : 'http://10.10.128.79:9200/elezioni/referendum/',
+    // eventuale proxy
+    proxy_url : 'http://proxy1.comune.rimini.it:8080',
+    
+    // ELENCO DI TUTTE LE AZIONI WEB SERVICE
+    // Per ogni azioni è impostato un oggetto di questo tipo 
+    //
+    // nomeAzione : {
+    //    templateFileName : '', // template file per la generazione xml presente nella cartella templateXML
+    //    endpoint_produzione : '', // endpoint in produzione della azione in oggetto
+    //    endpoint_test : '', // endpoint in test della azione in oggetto
+    //    xmlTagRisposta : '' // tag XML che contiene la risposta (da documentazione Ministero) che viene inserito nella risposta
+    //    
+    // }
+    //
 
     recuperaEventiElettorali: {
-        templateFileName : './templateXML/recuperaEventiElettorali.xml',
+        templateFileName : './templateXML/recuperaEventiElettorali.xml', // template file per la generazione xml
         endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSBase/ServiziElettoraliPort',
         endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSBase/ServiziElettoraliPort',
-        xmlTagRisposta : 'InfoEventiElettorali'
+        xmlTagRisposta : 'InfoEventiElettorali' // tag XML che contiene la risposta (da documentazione Ministero)
     },
 
     recuperaInfoAreaAcquisizione: {
@@ -91,13 +109,12 @@ module.exports = {
         xmlTagRisposta : 'Esito'
     },
 
-    log_filename: 'ELEZIONI.log',
-    log_level : 'DEBUG',
-    elastic_url : 'http://10.10.128.79:9200/elezioni/referendum/',
-    proxy_url : 'http://proxy1.comune.rimini.it:8080',
+    // NON MODIFICARE I SEGUENTI
     ws_call_url : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/wscall/',
     action_url_produzione : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/produzione/',
-    action_url_test : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test/',
-    storage_folder: 'folderNAME'
+    action_url_test : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test/'
+    
+
+    
 
 };
