@@ -1,5 +1,5 @@
 # elezioni
-=========
+
 ### Client REST per i web service Elettorali
 `elezioni` permette di interfacciare attraverso chiamate REST il web service del Ministero per le comunicazioni elettorali.
 
@@ -19,7 +19,12 @@ E' possibile avviare l'installazione  `npm`:
 
 ``` bash
 $ git clone https://github.com/paulodiff/elezioni.git
+$ cd elezioni
+$ npm init
 ```
+
+##### ___ATTENZIONE____
+##### E' necessario eseguire la seguente patch alla libreria ws.js
 
 **************** PATCH ********************
 
