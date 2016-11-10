@@ -12,7 +12,9 @@ Ws - Client elezioni
  * Per la generazione degli XML usa dei template
  * Supports multiple target versions of Node
 
-#### Installazione:
+Installazione:
+--------------
+
 ##### E' richiesta un'installazione di Node.js >= 4.4.5
 
 E' possibile avviare l'installazione  `npm`:
@@ -41,6 +43,7 @@ Libreria ws.js
 *******************************************
 
 #### Configurazione:
+
 
 
 
