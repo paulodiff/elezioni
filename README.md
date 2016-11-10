@@ -28,17 +28,21 @@ $ npm init
 ##### ___ATTENZIONE____
 ##### E' necessario eseguire la seguente patch alla libreria ws.js
 
-Modificare i seguenti files della libreria ws.js
+Modificare i seguenti files della libreria ws.js (node_modules\ws.js)
 
 
-Modificare il valore `expires_timespan` da 5 a 180 in due file per problemi di timestamp troppo brevi
+Modificare il valore `expires_timespan` portandolo da 5 a 180 nei due file seguenti per risolvere i problemi di timestamp troppo brevi:
+
 - node_modules\ws.js\lib\handlers\client\security\security.js
 - node_modules\ws.js\security.js
-- 
-Modificare il file seguente per permettere le chiamate attraverso un proxy:
+
+
+Modificare il file seguente aggiungendo la riga indicata per permettere le chiamate attraverso un proxy:
+
 - node_modules\ws.js\lib\handlers\client\http.js
 
-```javascript
+
+``` javascript
 HttpClientHandler.prototype.send = function(ctx, callback) {
   request.post({ url: ctx.url
                , body: ctx.request
@@ -47,25 +51,24 @@ HttpClientHandler.prototype.send = function(ctx, callback) {
                           , "Content-Type": ctx.contentType
                           , "MIME-Version": "1.0"
                           }
+  
 
-                          
 ```
 
 
-
-, body: ctx.request
-, proxy: "http://......:8080/,
-, headers: { "SOAPAction": ctx.action 
-
-
-*******************************************
-
 #### Configurazione:
 
+La configurazione avviene
 
 
 
 #### Uso:
+
+Avvio
+
+```bash
+$ node index.js
+```
 
 
 
