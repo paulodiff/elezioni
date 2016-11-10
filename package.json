@@ -1,0 +1,38 @@
+{
+  "name": "elezioni",
+  "version": "1.0.0",
+  "description": "WS CLIENT COMUNICAZIONI MINISTERO ELEZIONI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "WS",
+    "CLIENT",
+    "COMUNICAZIONI",
+    "MINISTERO",
+    "ELEZIONI"
+  ],
+  "author": "RUGGERO RUGGERI - COMUNE DI RIMINI",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.2",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "frameguard": "^3.0.0",
+    "handlebars": "^4.0.5",
+    "helmet": "^3.1.0",
+    "jsonwebtoken": "^7.1.9",
+    "lodash": "^4.16.6",
+    "log4js": "^1.0.0",
+    "moment": "^2.15.2",
+    "morgan": "^1.7.0",
+    "request": "^2.78.0",
+    "soap": "^0.17.0",
+    "uuid": "^2.0.3",
+    "ws.js": "^2.0.22",
+    "xml2js": "^0.4.17"
+  }
+}
