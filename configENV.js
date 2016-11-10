@@ -1,9 +1,5 @@
-
-// configuration BRAV
+// configurazione hostname
 module.exports = {
-
-    // hostname : 'webapi.comune.rimini.it',
-    hostname : '10.10.6.63',
-    server_port : 9989     
-
+    hostname : '10.10.6.63', // indicare ip o nomehost dove viene eseguito il server 
+    server_port : 9989       // indicare la porta di ascolto
 };

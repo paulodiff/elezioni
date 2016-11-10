@@ -5,15 +5,15 @@
 
 Ws - Client elezioni
 
-#### Caratteristiche:
+#### Caratteristiche
 
  * Attraverso chiamate API/REST interfaccia le chiamate WEB service del ministero
  * Nasconde la complessità per generare tutta l'autenticazione WSS degli xml
  * Per la generazione degli XML usa dei template
  * Supports multiple target versions of Node
 
-Installazione:
---------------
+Installazione
+-------------
 
 ##### E' richiesta un'installazione di Node.js >= 4.4.5
 
@@ -25,7 +25,7 @@ $ cd elezioni
 $ npm init
 ```
 
-##### ___ATTENZIONE____
+### ATTENZIONE PATCH DA APPLICARE
 ##### E' necessario eseguire la seguente patch alla libreria ws.js
 
 Modificare i seguenti files della libreria ws.js (node_modules\ws.js)
@@ -56,11 +56,46 @@ HttpClientHandler.prototype.send = function(ctx, callback) {
 ```
 
 
-#### Configurazione:
+Configurazione
+--------------
 
-La configurazione avviene
+La configurazione avviene attraverso i seguenti due files:
 
+- configENV.js
 
+```javascript
+module.exports = {
+    hostname : '10.10.6.63', // indicare ip o nomehost dove viene eseguito il server 
+    server_port : 9989       // indicare la porta di ascolto
+};
+```
+- configELEZIONI.js
+
+E' necessario impostare le seguenti proprietà
+
+| **Command**                       | **Description**
+|:----------------------------------|:------------------------------------------
+| `-j n`, `--jobs n`                | Run make in parallel
+| `--target=v6.2.1`                 | Node version to build for (default=process.version)
+| `--silly`, `--loglevel=silly`     | Log all progress to console
+| `--verbose`, `--loglevel=verbose` | Log most progress to console
+| `--silent`, `--loglevel=silent`   | Don't log anything to console
+| `debug`, `--debug`                | Make Debug build (default=Release)
+| `--release`, `--no-debug`         | Make Release build
+| `-C $dir`, `--directory=$dir`     | Run command in different directory
+| `--make=$make`                    | Override make command (e.g. gmake)
+| `--thin=yes`                      | Enable thin static libraries
+| `--arch=$arch`                    | Set target architecture (e.g. ia32)
+| `--tarball=$path`                 | Get headers from a local tarball
+| `--devdir=$path`                  | SDK download directory (default=~/.node-gyp)
+| `--ensure`                        | Don't reinstall headers if already present
+| `--dist-url=$url`                 | Download header tarball from custom URL
+| `--proxy=$url`                    | Set HTTP proxy for downloading header tarball
+| `--cafile=$cafile`                | Override default CA chain (to download tarball)
+| `--nodedir=$path`                 | Set the path to the node binary
+| `--python=$path`                  | Set path to the python (2) binary
+| `--msvs_version=$version`         | Set Visual Studio version (win)
+| `--solution=$solution`            | Set Visual Studio Solution version (win)
 
 #### Uso:
 
