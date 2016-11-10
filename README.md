@@ -1,6 +1,9 @@
-# Ws - Client elezioni
-======================
+# elezioni
+=========
+### Client REST per i web service Elettorali
 `elezioni` permette di interfacciare attraverso chiamate REST il web service del Ministero per le comunicazioni elettorali.
+
+Ws - Client elezioni
 
 #### Caratteristiche:
 
@@ -10,7 +13,13 @@
  * Supports multiple target versions of Node
 
 #### Installazione:
+##### E' richiesta un'installazione di Node.js >= 4.4.5
 
+E' possibile avviare l'installazione  `npm`:
+
+``` bash
+$ git clone https://github.com/paulodiff/elezioni.git
+```
 
 **************** PATCH ********************
 
