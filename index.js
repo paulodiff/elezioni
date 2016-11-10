@@ -245,7 +245,10 @@ models.Person.hasMany(models.Nucleos);
 var server = app.listen(app.get('port'), function() {
     console.log('Node ELEZIONI-WS start! porta: ' + ENV.server_port);
     console.log('action_url_produzione:',ENV_ELEZIONI.action_url_produzione);
-    console.log('action_url_test:',ENV_ELEZIONI.action_url_test); 
+    console.log('action_url_test:',ENV_ELEZIONI.action_url_test);
+    console.log('REST_url_produzione:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/produzione');
+    console.log('REST_url_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/test');
+    console.log('HTTP_GET_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test'); 
 });
 
 /*

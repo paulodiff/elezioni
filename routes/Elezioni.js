@@ -181,7 +181,7 @@ module.exports = function () {
         });
         */
 
-        res.send('ok');
+        res.send('WS-ELEZIONI OK!');
 
     })
 
