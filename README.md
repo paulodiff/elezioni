@@ -1,6 +1,15 @@
-README
+# Ws - Client elezioni
+======================
+`elezioni` permette di interfacciare attraverso chiamate REST il web service del Ministero per le comunicazioni elettorali.
 
-Ws - Client elezioni
+#### Caratteristiche:
+
+ * Attraverso chiamate API/REST interfaccia le chiamate WEB service del ministero
+ * Nasconde la complessità per generare tutta l'autenticazione WSS degli xml
+ * Per la generazione degli XML usa dei template
+ * Supports multiple target versions of Node
+
+#### Installazione:
 
 
 **************** PATCH ********************
@@ -17,7 +26,11 @@ Libreria ws.js
 
 *******************************************
 
+#### Configurazione:
 
+
+
+#### Uso:
 
 
 
