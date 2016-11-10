@@ -27,6 +27,7 @@ $ npm init
 
 ### ATTENZIONE PATCH DA APPLICARE
 ##### E' necessario eseguire la seguente patch alla libreria ws.js
+##### In ambiente Windows è sufficiente avviare `patch-ws-js/PATCH.BAT` altrimenti eseguire manualmente i le azioni seguenti
 
 Modificare i seguenti files della libreria ws.js (node_modules\ws.js)
 
