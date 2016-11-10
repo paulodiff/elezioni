@@ -23,7 +23,7 @@ var handlebars = require('handlebars');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var uuid = require('uuid');
-var SAMPLE_DATA = require ('../tmp/sampleData');
+// var SAMPLE_DATA = require ('../tmp/sampleData');
 
 var ACCESS_CONTROLL_ALLOW_ORIGIN = false;
 // var DW_PATH = (path.join(__dirname, './storage'));
@@ -169,7 +169,7 @@ module.exports = function () {
     router.get('/test', function (req, res) {
         
         //var jsonFile = require('./file_test.json'); // the above in my local directory
-        var testJSON2 = SAMPLE_DATA.testJSON2;
+        // var testJSON2 = SAMPLE_DATA.testJSON2;
 
         /*
         sendElastic(testJSON2).then(function (response) {

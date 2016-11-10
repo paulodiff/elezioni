@@ -17,12 +17,12 @@ Installazione
 
 ##### E' richiesta un'installazione di Node.js >= 4.4.5
 
-E' possibile avviare l'installazione  `npm`:
+Eseguire i seguenti comandi:
 
 ``` bash
 $ git clone https://github.com/paulodiff/elezioni.git
 $ cd elezioni
-$ npm init
+$ npm install
 ```
 
 ### ATTENZIONE PATCH DA APPLICARE
