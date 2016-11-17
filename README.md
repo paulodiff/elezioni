@@ -16,6 +16,7 @@ Installazione
 -------------
 
 ##### E' richiesta un'installazione di Node.js >= 4.4.5
+##### E' richiest l'installazione di Git >= 2.9.0 windows
 
 Eseguire i seguenti comandi:
 
@@ -23,6 +24,7 @@ Eseguire i seguenti comandi:
 $ git clone https://github.com/paulodiff/elezioni.git
 $ cd elezioni
 $ npm install
+$ patch-ws-js.bat
 ```
 
 ### ATTENZIONE PATCH DA APPLICARE
@@ -71,6 +73,15 @@ module.exports = {
 };
 ```
 - configELEZIONI.js
+
+
+Riferimnenti
+------------
+
+NodeJS 
+WS-JS https://github.com/yaronn/ws.js
+
+
 
 E' necessario impostare le seguenti proprietà
 
