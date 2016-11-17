@@ -168,7 +168,7 @@ e il parametro passato deve essere un array di strutture di questo tipo:
 
 - Ecco un esmpio di chiamata REST tramite CURL
 
-```javascript
+```
 curl -X POST -H "Content-Type: application/json" -d '[
             {
                 "action": {
