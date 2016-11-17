@@ -3,14 +3,12 @@
 ### Client REST per i web service Elettorali
 `elezioni` permette di interfacciare attraverso chiamate REST il web service del Ministero per le comunicazioni elettorali.
 
-Ws - Client elezioni
-
 #### Caratteristiche
 
- * Attraverso chiamate API/REST interfaccia le chiamate WEB service del ministero
+ * Attraverso chiamate API/REST interfaccia le chiamate Soap per le comunicazioni con il Ministero
  * Nasconde la complessità per generare tutta l'autenticazione WSS degli xml
- * Per la generazione degli XML usa dei template
- * Supports multiple target versions of Node
+ * Ha un log completo e permette chiamate batch
+ * Per la generazione degli XML usa dei template per verificare la generazione corretta degli XML
 
 Installazione
 -------------
@@ -30,7 +28,7 @@ $ nodemon
 ```
 
 ### ATTENZIONE PATCH DA APPLICARE
-##### E' necessario eseguire la seguente patch alla libreria ws.js
+##### E' necessario eseguire la seguente patch alla libreria ws.js in quanto al momento (11/2016) non supporta la chiamata attraverso proxy e modifiche al timeout
 ##### In ambiente Windows è sufficiente avviare `patch-ws-js.bat` altrimenti eseguire manualmente i le azioni seguenti
 
 Modificare i seguenti files della libreria ws.js (node_modules\ws.js)
@@ -60,7 +58,6 @@ HttpClientHandler.prototype.send = function(ctx, callback) {
 
 ```
 
-
 Configurazione
 --------------
 
@@ -76,45 +73,144 @@ module.exports = {
 ```
 - configELEZIONI.js (vedere il file di esempio)
 
-
-E' necessario impostare le seguenti proprietà
-
-
-
-Riferimnenti
-------------
-
-NodeJS 
-WS-JS https://github.com/yaronn/ws.js
-
-
-
 E' necessario impostare le seguenti proprietà
 
 | **Command**                       | **Description**
 |:----------------------------------|:------------------------------------------
-| `-j n`, `--jobs n`                | Run make in parallel
-| `--target=v6.2.1`                 | Node version to build for (default=process.version)
-| `--silly`, `--loglevel=silly`     | Log all progress to console
-| `--verbose`, `--loglevel=verbose` | Log most progress to console
-| `--silent`, `--loglevel=silent`   | Don't log anything to console
-| `debug`, `--debug`                | Make Debug build (default=Release)
-| `--release`, `--no-debug`         | Make Release build
-| `-C $dir`, `--directory=$dir`     | Run command in different directory
-| `--make=$make`                    | Override make command (e.g. gmake)
-| `--thin=yes`                      | Enable thin static libraries
-| `--arch=$arch`                    | Set target architecture (e.g. ia32)
-| `--tarball=$path`                 | Get headers from a local tarball
-| `--devdir=$path`                  | SDK download directory (default=~/.node-gyp)
-| `--ensure`                        | Don't reinstall headers if already present
-| `--dist-url=$url`                 | Download header tarball from custom URL
-| `--proxy=$url`                    | Set HTTP proxy for downloading header tarball
-| `--cafile=$cafile`                | Override default CA chain (to download tarball)
-| `--nodedir=$path`                 | Set the path to the node binary
-| `--python=$path`                  | Set path to the python (2) binary
-| `--msvs_version=$version`         | Set Visual Studio version (win)
-| `--solution=$solution`            | Set Visual Studio Solution version (win)
+| keyFile_produzione                | Percorso completo al certificato di accesso per la produzione (.PEM)
+| keyFile_test                      | Percorso completo al certificato di accesso per il test (.PEM)
+| log_filename                      | Nome del file di log nella cartella ./log
+| log_level                         | DEBUG o ERROR
+| keyFile_elastic_url               | Url MongoDB dove viene inviato con una PUT tutta la risposta del Ministero (log evoluto)
+| proxy_url                         | Se l'uscita ad internet deve essere effettuata tramite proxy
 
+inoltre una serie di blocchi di configurazione per ogni tipo di chiamata Soap così strutturati:
+
+```javascript
+    // ELENCO DI TUTTE LE AZIONI WEB SERVICE
+    // Per ogni azioni è impostato un oggetto di questo tipo 
+    //
+    // nomeAzione : {
+    //    templateFileName : '', // template file per la generazione xml presente nella cartella templateXML
+    //    endpoint_produzione : '', // endpoint in produzione della azione in oggetto
+    //    endpoint_test : '', // endpoint in test della azione in oggetto
+    //    xmlTagRisposta : '' // tag XML che contiene la risposta (da documentazione Ministero) che viene inserito nella risposta
+    //    
+    // }
+    //
+
+    Esempio:
+
+    recuperaEventiElettorali: {
+        templateFileName : './templateXML/recuperaEventiElettorali.xml', // template file per la generazione xml
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSBase/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSBase/ServiziElettoraliPort',
+        xmlTagRisposta : 'InfoEventiElettorali' // tag XML che contiene la risposta (da documentazione Ministero)
+    },
+```
+
+- Generazione dei template XML
+
+I template XML sono generati per essere utilizzati con la libreria handlebars.js (http://handlebarsjs.com/).
+E' sufficiente analizzare i template nella cartella `./templateXML` per capire la modalità di generazione.
+Sono stati utilizzati usando SoapUI aprendo i file wsdl forniti dal Ministero.  
+
+
+Uso
+---
+
+```bash
+$ nodemon
+```
+
+Viene avviato il server pronto per eseguire la chiamata.
+Se si apre la pagina http://server:port/docs/log.html si ha un log in tempo reale delle operazioni
+
+- Chiamata REST (Postma - plugin di Google Chrome)
+
+E' necessario impostare l'URL del servizio a "http://server:port/elezioni/batch/produzione"
+Il metodo deve essere POST
+I parametri passati devono essere un array di strutture di questo tipo:
+Questo esempio invia due chiamate che sono effettuate in sequenza con un ritardo di 2 secondi, la risposta è cumulativa
+
+```javascript
+[
+            {
+                "action": {
+                    "operationId": "inviaScrutiniReferendum", // in configELEZIONI.js
+                    "actionId": "showXML" // showXML: ritorna l'xml generato oppure sendXML (invio vero e proprio)
+                },
+                "data": {
+                    "UserID": "[BASE64_USERID]",
+                    "Password": "[BASE64_PASSWORD]",
+                    // e tutti gli altri campi richiesti dal template
+
+                }
+            },
+            {
+                "action": {
+                    "operationId": "inviaScrutiniReferendum", // in configELEZIONI.js
+                    "actionId": "showXML" // showXML: ritorna l'xml generato oppure sendXML (invio vero e proprio)
+                },
+                "data": {
+                    "UserID": "[BASE64_USERID]",
+                    "Password": "[BASE64_PASSWORD]",
+                    // e tutti gli altri campi richiesti dal template
+
+                }
+            }
+
+            // ecc. per altre chiamate
+
+
+]
+```
+
+Ecco un esmpio di chiamata REST tramite CURL
+
+```javascript
+curl -X POST -H "Content-Type: application/json" -d '[
+            {
+                "action": {
+                    "operationId": "inviaScrutiniReferendum",
+                    "actionId": "showXML"
+                },
+                "data": {
+                    "UserID": "[BASE64_USERID]",
+                    "Password": "[BASE64_PASSWORD]",
+                    "CodiceComune": "140",
+                    "CodiceProvincia": "101",
+                    "TipoElezione": "7",
+                    "DataElezione": "3016-12-04",
+                    "LivelloAcquisizione" : "S",
+                    "CodiceSezione" : "1",
+                    "NumeroProgressivoArea" : "71010140000001",
+                    "NumeroScheda" : "1",
+                    "DataOraInizioComunicazione" : "3016-12-04T12:00:00",
+                    "NumeroTotale" : "100",
+                    "FlagInserimentoDefinitivo" : "true",
+                    "NumeroVotantiMaschi": "90",
+                    "NumeroVotantiFemmine": "90",
+                    "NumeroVotantiTotale": "180",
+                    "FlagRettifica": "true",
+                    "NumeroSezioniPervenute": "1",
+                    "NumeroSchedeBianche": "1",
+                    "NumeroSchedeNulle" : "1",
+                    "NumeroSchedeContestate" : "2",
+                    "NumeroVotiSi": "88",
+                    "NumeroVotiNo": "88",
+                    "TotaleNumeroVoti": "176"
+                }
+            }
+]' "http://server:port/elezioni/batch/produzione"
+```
+
+
+Riferimenti
+----------
+
+NodeJS 
+WS-JS https://github.com/yaronn/ws.js
 
 Avvio
 -----
@@ -125,7 +221,7 @@ $ nodemon
 
 ```
 
-
+# FINE DOCUMENTO
 
 
 # This is an H1

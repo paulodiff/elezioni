@@ -7,7 +7,7 @@ module.exports = {
     keyFile_produzione : './tmp/produzione2.pem', // certificato ambiente di produzione
     keyFile_test : './tmp/test.pem',     // certificato ambiente di test
     log_filename: 'ELEZIONI.log', // nome del file di log inserito nella cartella ./log
-    log_level : 'DEBUG',
+    log_level : 'DEBUG', // ERROR
     // url MongoDB dove viene inviato un PUT con la risposta generata (per Monitoraggio) - opzionale
     elastic_url : 'http://10.10.128.79:9200/elezioni/referendum/',
     // eventuale proxy
