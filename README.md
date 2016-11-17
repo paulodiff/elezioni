@@ -22,7 +22,7 @@ Eseguire i seguenti comandi:
 $ git clone https://github.com/paulodiff/elezioni.git
 $ cd elezioni
 $ npm install
-$ npm nodemon
+$ npm install nodemon
 $ patch-ws-js.bat (patch per la libreria ws.js)
 $ nodemon 
 ```
@@ -126,12 +126,12 @@ $ nodemon
 Viene avviato il server pronto per eseguire la chiamata.
 Se si apre la pagina http://server:port/docs/log.html si ha un log in tempo reale delle operazioni
 
-- Chiamata REST (Postma - plugin di Google Chrome)
+## Chiamata REST (consiglio Postman - plugin di Google Chrome)
 
-E' necessario impostare l'URL del servizio a "http://server:port/elezioni/batch/produzione"
-Il metodo deve essere POST
-I parametri passati devono essere un array di strutture di questo tipo:
-Questo esempio invia due chiamate che sono effettuate in sequenza con un ritardo di 2 secondi, la risposta è cumulativa
+- E' necessario impostare l'URL del servizio a "http://server:port/elezioni/batch/produzione"
+- Il metodo deve essere POST
+- Questo esempio invia due chiamate che sono effettuate in sequenza con un ritardo di 2 secondi, la risposta è cumulativa
+e il parametro passato deve essere un array di strutture di questo tipo:
 
 ```javascript
 [
@@ -166,7 +166,7 @@ Questo esempio invia due chiamate che sono effettuate in sequenza con un ritardo
 ]
 ```
 
-Ecco un esmpio di chiamata REST tramite CURL
+- Ecco un esmpio di chiamata REST tramite CURL
 
 ```javascript
 curl -X POST -H "Content-Type: application/json" -d '[
@@ -209,17 +209,8 @@ curl -X POST -H "Content-Type: application/json" -d '[
 Riferimenti
 ----------
 
-NodeJS 
 WS-JS https://github.com/yaronn/ws.js
 
-Avvio
------
-
-```bash
-
-$ nodemon
-
-```
 
 # FINE DOCUMENTO
 
