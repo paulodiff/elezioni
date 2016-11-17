@@ -21,8 +21,12 @@
                <elet:DatiVotanti>
                   <elet:DataOraInizioComunicazione>{{DataOraInizioComunicazione}}</elet:DataOraInizioComunicazione>
                   <elet:NumeroTotale>{{NumeroTotale}}</elet:NumeroTotale>
+                  {{#if NumeroMaschi}}
                   <elet:NumeroMaschi>{{NumeroMaschi}}</elet:NumeroMaschi>
+                  {{/if}}
+                  {{#if NumeroFemmine}}
                   <elet:NumeroFemmine>{{NumeroFemmine}}</elet:NumeroFemmine>
+                  {{/if}}
                </elet:DatiVotanti>
             </elet:DatiScheda>
          </elet:VotantiReferendum>

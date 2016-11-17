@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>LOG OPERAZIONI MINISTERO</title>
+  <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='css/print.css' media='print' rel='stylesheet' type='text/css'/>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+   var url = window.location.href;
+   console.log(url);
+   var arr = url.split("/");
+   console.log(arr);
+   var result = arr[0] + "//" + arr[2]
+   console.log(result);
+
+    var socket = io.connect(result);
+    socket.on('news', function (data) {
+    $("#log ul").append('<li><pre>' + data.dataDocumento + '|' +  data.CodiceEsito + '|' + data.operationId + '|' +  data.DescrizioneEsito + '</pre></li>');
+    console.log(data);
+  });
+</script>
+</head>
+
+<body class="swagger-section">
+
+
+
+<div id='header'>
+  <div class="swagger-ui-wrap">
+    <a id="logo" href=""><span class="logo__title">Log operazioni Ministero</span></a>
+    <form id='api_selector'>
+      <div id='auth_container'></div>
+      <div class='input'><div id="ResetData" class="header__btn">Reset</div></div>
+    </form>
+  </div>
+</div>
+
+
+<div id="log" class="swagger-ui-wrap">
+    <ul class="tabs">
+    </ul>
+</div>
+
+
+
+</body>
+<script src="bower_components\jquery\dist\jquery.js"></script>
+    <script>
+ 
+    $( document ).ready(function() {
+
+        $( "a" ).click(function( event ) {
+            alert( "The link will no longer take you to jquery.com" );
+            event.preventDefault();
+        });
+        $( "#ResetData" ).click(function( event ) {
+            // alert( "The link will no longer take you to jquery.com" );
+            $("#log ul").empty();
+            event.preventDefault();
+        });
+
+    });
+ 
+    </script>
+  </html>

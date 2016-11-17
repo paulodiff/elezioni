@@ -1,6 +1,21 @@
+var http = require('http');
 var express = require('express');
-var app = express();
+// var app = express.createServer();
+// var app = require('express').createServer();
 // var uuid = require('node-uuid');
+
+
+var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+// server.listen(80);
+
+// socket.io
+// var app = require('express').createServer();
+// var io = require('socket.io')(app);
+// app.listen(80);
+
 
 //var flash        = require('connect-flash');
 var morgan       = require('morgan');
@@ -197,6 +212,8 @@ var Ele = require('./routes/Ele')();
 app.use('/ele', Ele);
 */
 
+app.set('socketio', io);
+
 var Elezioni = require('./routes/Elezioni')();
 app.use('/elezioni', Elezioni);
 
@@ -212,8 +229,17 @@ app.use('/swagger', express.static(__dirname + '/swagger'));
 */
 
 app.use('/docs', express.static(__dirname + '/docs'));
-
  
+// socket.io
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/socket.html');
+});
+
+// socket = require('./routes/socket.js');
+// io.on('connection', socket );
+
+
 /*
 app.get(['/test', '/1produzione/:id1/:id2', '/2test/:id1/id2'], function (req, res) {
   console.log(req);
@@ -242,7 +268,7 @@ models.Person.hasMany(models.Blobs);
 models.Person.hasMany(models.Nucleos);
 */
 
-var server = app.listen(app.get('port'), function() {
+server.listen(app.get('port'), function() {
     console.log('Node ELEZIONI-WS start! porta: ' + ENV.server_port);
     console.log('action_url_produzione:',ENV_ELEZIONI.action_url_produzione);
     console.log('action_url_test:',ENV_ELEZIONI.action_url_test);

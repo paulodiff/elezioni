@@ -113,8 +113,6 @@ module.exports = {
     ws_call_url : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/wscall/',
     action_url_produzione : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/produzione/',
     action_url_test : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test/'
-    
-
-    
+ 
 
 };

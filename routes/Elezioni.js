@@ -25,6 +25,7 @@ var parser = new xml2js.Parser();
 var uuid = require('uuid');
 // var SAMPLE_DATA = require ('../tmp/sampleData');
 
+
 var ACCESS_CONTROLL_ALLOW_ORIGIN = false;
 // var DW_PATH = (path.join(__dirname, './storage'));
 // var DW_PATH = './storage';
@@ -66,6 +67,16 @@ module.exports = function () {
 
     var WS_IRIDE = "";
     var MODO_OPERATIVO = "TEST";
+    var MY_SOCKET = {};
+    
+
+/*
+    function emitMessage(req, msg) {
+        logConsole.info('emitMessage:scocket',msg);
+        var io = req.app.get('socketio');
+        io.emit('news', { "msg": msg });
+    }
+*/
     
     // invia un documento ad ElasticSearch
     function sendElastic(data) {
@@ -147,9 +158,9 @@ module.exports = function () {
                 // return ctx;
                 
             });
-
+        
         });
-
+        
     }
 
     // Estrare una parte da un JSON
@@ -186,7 +197,11 @@ module.exports = function () {
         });
         */
 
-        res.send('WS-ELEZIONI OK!');
+        var io = req.app.get('socketio');
+        io.emit('news', { msg: new Date() });
+        console.log('io.socket ... emitted!');
+
+        res.send('WS-ELEZIONI OK! ');
 
     })
 
@@ -194,6 +209,7 @@ module.exports = function () {
     // esegue invio in produzione o test
     router.post('/batch/:envId', function (req, res) {
 
+        var io = req.app.get('socketio');
         logConsole.info('batch:');
         var envId = req.params.envId;
         if( (envId == "test") || (envId == "produzione") ) { 
@@ -249,7 +265,8 @@ module.exports = function () {
                             outJSON.response = error;
                             outJSON.datiInput = sampleData[dataId].data;
                             outJSON.dataDocumento = new Date();
-                            sendElastic(outJSON); 
+                            sendElastic(outJSON);
+                            io.emit('news', outJSON);
                             callback(error);
                         }
                         if (!error && response.statusCode == 200) {
@@ -290,6 +307,7 @@ module.exports = function () {
                                     outJSON.datiInput = sampleData[dataId].data;
                                     locals.push(outJSON);
                                     sendElastic(outJSON);
+                                    io.emit('news', outJSON);
                                     callback();
                                 });
                             } else {
@@ -305,6 +323,7 @@ module.exports = function () {
                                 outJSON.dataDocumento = new Date();
                                 locals.push(outJSON);
                                 sendElastic(outJSON);
+                                io.emit('news', outJSON);
                                 callback();
                             }
                         } else {
@@ -318,6 +337,7 @@ module.exports = function () {
                             outJSON.dataDocumento = new Date();
                             outJSON.datiInput = sampleData[dataId].data;
                             locals.push(outJSON);
+                            io.emit('news', outJSON);
                             callback();
                         }
                     })
@@ -334,6 +354,12 @@ module.exports = function () {
                 logConsole.info('batch:FINAL OK send locals');
                 res.status(200).send(locals);
             }
+            var finalMsg = {
+                dataDocumento: new Date(),
+                operationId: 'Operazione terminata',
+                CodiceEsito: '###'
+            }
+            io.emit('news', finalMsg);
         });
 
         // var jsonFile = require('./file_test.json'); // the above in my local directory

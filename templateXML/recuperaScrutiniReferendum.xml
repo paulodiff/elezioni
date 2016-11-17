@@ -10,6 +10,7 @@
             <elet:TipoElezione>{{TipoElezione}}</elet:TipoElezione>
             <elet:DataElezione>{{DataElezione}}</elet:DataElezione>
         </elet:Evento>
+        <elet:DataOraInizioComunicazione>{{DataOraInizioComunicazione}}</elet:DataOraInizioComunicazione>
         <elet:CodiceProvincia>{{CodiceProvincia}}</elet:CodiceProvincia>
         <elet:CodiceComune>{{CodiceComune}}</elet:CodiceComune>
     </elet:ParametriRichiestaRecuperaScrutini>

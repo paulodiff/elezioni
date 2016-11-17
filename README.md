@@ -98,9 +98,9 @@ E' necessario impostare le seguenti proprietà
 | `--msvs_version=$version`         | Set Visual Studio version (win)
 | `--solution=$solution`            | Set Visual Studio Solution version (win)
 
-#### Uso:
 
 Avvio
+-----
 
 ```bash
 $ node index.js
