@@ -274,7 +274,9 @@ server.listen(app.get('port'), function() {
     console.log('action_url_test:',ENV_ELEZIONI.action_url_test);
     console.log('REST_url_produzione:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/produzione');
     console.log('REST_url_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/test');
-    console.log('HTTP_GET_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test'); 
+    console.log('HTTP_GET_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test');
+    console.log('LOG CONSOLE:','http://' + ENV.hostname + ':' + ENV.server_port +  '/docs/log.html'); 
+
 });
 
 /*
