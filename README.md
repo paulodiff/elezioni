@@ -14,7 +14,7 @@ Installazione
 -------------
 
 ##### E' richiesta un'installazione di Node.js >= 4.4.5
-##### E' richiest l'installazione di Git >= 2.9.0 windows
+##### E' richiesta l'installazione di Git >= 2.9.0 windows
 
 Eseguire i seguenti comandi:
 
@@ -73,7 +73,7 @@ module.exports = {
 ```
 - configELEZIONI.js (vedere il file di esempio)
 
-E' necessario impostare le seguenti proprietà
+E' necessario impostare le seguenti proprietà:
 
 | **Command**                       | **Description**
 |:----------------------------------|:------------------------------------------
@@ -84,11 +84,11 @@ E' necessario impostare le seguenti proprietà
 | keyFile_elastic_url               | Url MongoDB dove viene inviato con una PUT tutta la risposta del Ministero (log evoluto)
 | proxy_url                         | Se l'uscita ad internet deve essere effettuata tramite proxy
 
-inoltre una serie di blocchi di configurazione per ogni tipo di chiamata Soap così strutturati:
+inoltre devono essere definiti una serie di blocchi di configurazione per le chiamate Soap, così strutturati:
 
 ```javascript
     // ELENCO DI TUTTE LE AZIONI WEB SERVICE
-    // Per ogni azioni è impostato un oggetto di questo tipo 
+    // Per ogni azione è impostato un oggetto di questo tipo 
     //
     // nomeAzione : {
     //    templateFileName : '', // template file per la generazione xml presente nella cartella templateXML
@@ -109,11 +109,11 @@ inoltre una serie di blocchi di configurazione per ogni tipo di chiamata Soap co
     },
 ```
 
-- Generazione dei template XML
+#### Generazione dei template XML
 
-I template XML sono generati per essere utilizzati con la libreria handlebars.js (http://handlebarsjs.com/).
-E' sufficiente analizzare i template nella cartella `./templateXML` per capire la modalità di generazione.
-Sono stati utilizzati usando SoapUI aprendo i file wsdl forniti dal Ministero.  
+- I template XML sono generati per essere utilizzati con la libreria handlebars.js (http://handlebarsjs.com/).
+- E' sufficiente analizzare i template nella cartella `./templateXML` per capire la modalità di generazione.
+- Sono stati utilizzati usando SoapUI aprendo i file wsdl forniti dal Ministero.  
 
 
 Uso
@@ -213,7 +213,7 @@ WS-JS https://github.com/yaronn/ws.js
 
 
 # FINE DOCUMENTO
-
+## FINE DOCUMENTO
 
 # This is an H1
 ## This is an H2

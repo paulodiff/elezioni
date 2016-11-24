@@ -181,6 +181,22 @@ module.exports = function () {
         return ids;
     }
 
+    // route socketUp
+    router.get('/socketUp', function (req, res) {
+        var io = req.app.get('socketio');
+        logConsole.info('socketUp:');
+        var data = {
+                'dataDocumento': new Date(),
+                'CodiceEsito': '9999',
+                'operationId':'socketUp!',
+                'DescrizioneEsito': '9999'
+        };
+        io.emit('news',  data );
+        console.log('io.socket ... emitted!');
+        res.send('socketUp!');
+    })
+
+
     // route di test
     router.get('/test', function (req, res) {
         

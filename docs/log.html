@@ -20,8 +20,10 @@
 
     var socket = io.connect(result);
     socket.on('news', function (data) {
-    $("#log ul").append('<li><pre>' + data.dataDocumento + '|' +  data.CodiceEsito + '|' + data.operationId + '|' +  data.DescrizioneEsito + '</pre></li>');
-    console.log(data);
+      console.log('news received!');
+      console.log(data);
+      console.log(data.dataDocumento);
+      $("#log ul").append('<li><pre>' + data.dataDocumento + '|' +  data.CodiceEsito + '|' + data.operationId + '|' +  data.DescrizioneEsito + '</pre></li>');
   });
 </script>
 </head>
@@ -36,6 +38,7 @@
     <form id='api_selector'>
       <div id='auth_container'></div>
       <div class='input'><div id="ResetData" class="header__btn">Reset</div></div>
+      <div class='input'><div id="TestData" class="header__btn">Test</div></div>
     </form>
   </div>
 </div>
@@ -63,7 +66,26 @@
             $("#log ul").empty();
             event.preventDefault();
         });
-
+        $( "#TestData" ).click(function( event ) {
+            // alert( "The link will no longer take you to jquery.com" );
+            //$("#log ul").empty();
+            //event.preventDefault();
+            $.ajax({
+                url: '/elezioni/socketUp',
+                type: 'GET',
+                dataType: 'json'
+            }).done(function(data) {
+              console.log(">> success");  
+              console.log(data);
+            }).fail(function(err) {
+              console.log(">> error");  
+              console.log(err);
+            
+            }).always(function(data) {
+              console.log(">> complete");
+              console.log(data); 
+            });
+        });
     });
  
     </script>
