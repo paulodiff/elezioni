@@ -192,7 +192,7 @@ module.exports = function () {
                 'DescrizioneEsito': '9999'
         };
         io.emit('news',  data );
-        console.log('io.socket ... emitted!');
+        logConsole.info('io.socket ... emitted!');
         res.send('socketUp!');
     })
 
