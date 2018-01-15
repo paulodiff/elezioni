@@ -24,6 +24,7 @@ var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var uuid = require('uuid');
 // var SAMPLE_DATA = require ('../tmp/sampleData');
+var emitterBus = require("../models/emitterModule.js");
 
 
 var ACCESS_CONTROLL_ALLOW_ORIGIN = false;
@@ -181,6 +182,8 @@ module.exports = function () {
         return ids;
     }
 
+    /*
+
     // route socketUp
     router.get('/socketUp', function (req, res) {
         var io = req.app.get('socketio');
@@ -196,36 +199,42 @@ module.exports = function () {
         res.send('socketUp!');
     })
 
+    */
+
 
     // route di test
+    /*
     router.get('/test', function (req, res) {
         
         //var jsonFile = require('./file_test.json'); // the above in my local directory
         // var testJSON2 = SAMPLE_DATA.testJSON2;
-
-        /*
-        sendElastic(testJSON2).then(function (response) {
-            console.log(response.body)
-        }
-        ).catch(function (err) {
-            console.log(err)
-            console.log('ERRORE');
-        });
-        */
 
         var io = req.app.get('socketio');
         io.emit('news', { msg: new Date() });
         console.log('io.socket ... emitted!');
 
         res.send('WS-ELEZIONI OK! ');
+    })
+    */
 
+    // chiamate di test per verificare il funzionamento degli eventi live
+    router.get('/testSse/:sseId', function (req, res) {
+        console.log('testSse', req.params.sseId);
+        emitterBus.eventBus.sendEvent('logMessage', { sseId: req.params.sseId, msg: 'ooook'});
+        res.send('WS-ELEZIONI testSse OK! ');
+    })
+
+    router.get('/broadcastSse/:sseId', function (req, res) {
+        console.log('broadcastSse', req.params.sseId);
+        emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: req.params.sseId, msg: 'broadcast ooook'});
+        res.send('WS-ELEZIONI broadcastSse OK! ');
     })
 
 
     // esegue invio in produzione o test
     router.post('/batch/:envId', function (req, res) {
 
-        var io = req.app.get('socketio');
+        // var io = req.app.get('socketio');
         logConsole.info('batch:');
         var envId = req.params.envId;
         if( (envId == "test") || (envId == "produzione") ) { 
@@ -261,9 +270,12 @@ module.exports = function () {
             var options = {
                 url: url,
                 method: 'GET',
-                proxy: ENV_ELEZIONI.proxy_url,
                 qs: sampleData[dataId].data
             };
+
+            if (ENV_ELEZIONI.proxy_url) options.proxy = ENV_ELEZIONI.proxy_url;
+
+            logConsole.info('batch:request:', options);
 
             setTimeout(
 
@@ -275,6 +287,8 @@ module.exports = function () {
                             logConsole.error('batch: Errore invio richiesta ...');
                             logConsole.error(error);
                             var outJSON = {};
+
+                            outJSON.envId = envId;
                             outJSON.operationId = operationId;
                             outJSON.actionId = actionId;
                             outJSON.statusCode = "500";
@@ -282,7 +296,10 @@ module.exports = function () {
                             outJSON.datiInput = sampleData[dataId].data;
                             outJSON.dataDocumento = new Date();
                             sendElastic(outJSON);
-                            io.emit('news', outJSON);
+                            
+                            // io.emit('news', outJSON);
+                            emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: 'Elezioni.js', statusCode:outJSON.statusCode,  msg: outJSON});
+                            
                             callback(error);
                         }
                         if (!error && response.statusCode == 200) {
@@ -300,6 +317,7 @@ module.exports = function () {
                                     var SFault = extractItem(result, "S:Fault");
                                     var XMLRisposta = extractItem(result, xmlTagRisposta);
 
+                                    outJSON.envId = envId;
                                     outJSON.operationId = operationId;
                                     outJSON.actionId = actionId;
                                     outJSON.url = info.url;
@@ -323,11 +341,13 @@ module.exports = function () {
                                     outJSON.datiInput = sampleData[dataId].data;
                                     locals.push(outJSON);
                                     sendElastic(outJSON);
-                                    io.emit('news', outJSON);
+                                    // io.emit('news', outJSON);
+                                    emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: 'Elezioni.js', statusCode:outJSON.statusCode,  msg: outJSON});
                                     callback();
                                 });
                             } else {
                                 var outJSON = {};
+                                outJSON.envId = envId;
                                 outJSON.operationId = operationId;
                                 outJSON.actionId = actionId;
                                 outJSON.url = url;
@@ -339,12 +359,14 @@ module.exports = function () {
                                 outJSON.dataDocumento = new Date();
                                 locals.push(outJSON);
                                 sendElastic(outJSON);
-                                io.emit('news', outJSON);
+                                emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: 'Elezioni.js', statusCode:outJSON.statusCode,  msg: outJSON});
+                                // io.emit('news', outJSON);
                                 callback();
                             }
                         } else {
                             logConsole.error('batch: Errore generico');
                             var outJSON = {};
+                            outJSON.envId = envId;
                             outJSON.operationId = operationId;
                             outJSON.actionId = actionId;
                             outJSON.statusCode = "500";
@@ -353,7 +375,8 @@ module.exports = function () {
                             outJSON.dataDocumento = new Date();
                             outJSON.datiInput = sampleData[dataId].data;
                             locals.push(outJSON);
-                            io.emit('news', outJSON);
+                            // io.emit('news', outJSON);
+                            emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: 'Elezioni.js', statusCode:outJSON.statusCode,  msg: outJSON});
                             callback();
                         }
                     })
@@ -375,7 +398,8 @@ module.exports = function () {
                 operationId: 'Operazione terminata',
                 CodiceEsito: '###'
             }
-            io.emit('news', finalMsg);
+            // io.emit('news', finalMsg);
+            emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: 'Elezioni.js', statusCode:1000,  msg: finalMsg});
         });
 
         // var jsonFile = require('./file_test.json'); // the above in my local directory
@@ -424,7 +448,7 @@ module.exports = function () {
 
         // recupera la configurazione
         if (ENV_ELEZIONI[operationId]) { 
-            if (envId == "test")         endpoint = ENV_ELEZIONI[operationId].endpoint_test;
+            if (envId == "test")        endpoint = ENV_ELEZIONI[operationId].endpoint_test;
             if (envId == "produzione")  endpoint = ENV_ELEZIONI[operationId].endpoint_produzione;
         } else {
             logConsole.error('SO:operationId NON TROVATA');

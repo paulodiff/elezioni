@@ -7,7 +7,7 @@ var express = require('express');
 
 var app = express();
 var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+// var io = require('socket.io').listen(server);
 
 // server.listen(80);
 
@@ -212,10 +212,13 @@ var Ele = require('./routes/Ele')();
 app.use('/ele', Ele);
 */
 
-app.set('socketio', io);
+// app.set('socketio', io);
 
 var Elezioni = require('./routes/Elezioni')();
 app.use('/elezioni', Elezioni);
+
+var Sse = require('./routes/SseMgr')();
+app.use('/sse', Sse);
 
 /*
 //default serving html data
@@ -229,11 +232,12 @@ app.use('/swagger', express.static(__dirname + '/swagger'));
 */
 
 app.use('/docs', express.static(__dirname + '/docs'));
+app.use('/docs-angular', express.static(__dirname + '/docs-angular'));
  
 // socket.io
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/socket.html');
+  res.sendFile(__dirname + '/info.html');
 });
 
 // socket = require('./routes/socket.js');
@@ -275,7 +279,8 @@ server.listen(app.get('port'), function() {
     console.log('REST_url_produzione:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/produzione');
     console.log('REST_url_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/test');
     console.log('HTTP_GET_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test');
-    console.log('LOG CONSOLE:','http://' + ENV.hostname + ':' + ENV.server_port +  '/docs/log.html'); 
+    console.log('LOG CONSOLE:','http://' + ENV.hostname + ':' + ENV.server_port +  ''); 
+    console.log('KIBANA:','http://10.10.128.79:5601/app/kibana');
 
 });
 

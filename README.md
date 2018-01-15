@@ -1,5 +1,7 @@
 # elezioni
 
+Ruggero Ruggeri - Comune di Rimini
+
 ### Client REST per i web service Elettorali
 `elezioni` permette di interfacciare attraverso chiamate REST il web service del Ministero per le comunicazioni elettorali.
 
@@ -10,8 +12,8 @@
  * Ha un log completo e permette chiamate batch
  * Per la generazione degli XML usa dei template per verificare la generazione corretta degli XML
 
-Installazione
--------------
+#### Installazione
+
 
 ##### E' richiesta un'installazione di Node.js >= 4.4.5
 ##### E' richiesta l'installazione di Git >= 2.9.0 windows
@@ -128,10 +130,21 @@ Se si apre la pagina http://server:port/docs/log.html si ha un log in tempo real
 
 ## Chiamata REST (consiglio Postman - plugin di Google Chrome)
 
+- la chiamata è del tipo
+
+- ApiEndpoint
+
+    http://server:port/elezioni/batch/produzione (chiamata in produzione)
+    http://server:port/elezioni/batch/test (chiamata in test)
+
 - E' necessario impostare l'URL del servizio a "http://server:port/elezioni/batch/produzione"
+
 - Il metodo deve essere POST
+
 - Questo esempio invia due chiamate che sono effettuate in sequenza con un ritardo di 2 secondi, la risposta è cumulativa
 e il parametro passato deve essere un array di strutture di questo tipo:
+
+
 
 ```javascript
 [
@@ -207,10 +220,11 @@ curl -X POST -H "Content-Type: application/json" -d '[
 
 
 Riferimenti
-----------
+-----------
 
 WS-JS https://github.com/yaronn/ws.js
 
+***
 ***
 
 # FINE DOCUMENTO
@@ -265,7 +279,7 @@ __bold characters__
 ## File Structure of App
 
 ```
-ionic-conference-app/
+ionic-conference-sapp/
 ├-- .github/                            * GitHub files
 │   ├── CONTRIBUTING.md                 * Documentation on contributing to this repo
 │   └── ISSUE_TEMPLATE.md               * Template used to populate issues in this repo

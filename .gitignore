@@ -7,8 +7,12 @@ tmp
 .idea
 .temp
 .sass-cache
+bower_components
 client/bower_components
+docs/bower_components
+docs-angular/bower_components
 app/config.js
+config
 coverage
 platforms
 plugins

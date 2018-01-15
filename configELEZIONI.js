@@ -11,7 +11,7 @@ module.exports = {
     // url MongoDB dove viene inviato un PUT con la risposta generata (per Monitoraggio) - opzionale
     elastic_url : 'http://10.10.128.79:9200/elezioni/referendum/',
     // eventuale proxy
-    proxy_url : 'http://proxy1.comune.rimini.it:8080',
+    // proxy_url : 'http://proxy1.comune.rimini.it:8080',
     
     // ELENCO DI TUTTE LE AZIONI WEB SERVICE
     // Per ogni azioni è impostato un oggetto di questo tipo 
