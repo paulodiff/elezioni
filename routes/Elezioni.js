@@ -18,7 +18,7 @@ var ENV_ELEZIONI = require('../configELEZIONI.js'); // load user configuration d
 var async = require('async');
 // var Segnalazione  = require('../models/segnalazione.js'); // load configuration data
 // var flow = require('../models/flow-node.js')('tmp'); // load configuration data
-// var utilityModule = require('../models/utilityModule.js');
+var utilityModule = require('../models/utilityModule.js');
 var handlebars = require('handlebars');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
@@ -243,11 +243,18 @@ module.exports = function () {
             res.status(500).send('envId: ' + envId + ' NON TROVATO (test/produzione)');
             return;
         }
+
+        var batchId = envId[0] + utilityModule.pad(Math.floor((Math.random() * 10000) + 1),6);
+
         var sampleData = req.body;        
         var locals = [];
 
+        logConsole.info('batch:lenght', sampleData.length);
+        var lengthOfBatch = sampleData.length;
+
         async.forEachSeries(Object.keys(sampleData), function (dataId, callback) {
             
+            logConsole.info('batch:dataId:', dataId);
             logConsole.info('batch:operationId:',sampleData[dataId].action.operationId);
             logConsole.info('batch:actionId:',sampleData[dataId].action.actionId);
 
@@ -288,7 +295,10 @@ module.exports = function () {
                             logConsole.error(error);
                             var outJSON = {};
 
+                            outJSON.batchId = batchId;
                             outJSON.envId = envId;
+                            outJSON.progressValue = dataId;
+                            outJSON.progressMax = lengthOfBatch;
                             outJSON.operationId = operationId;
                             outJSON.actionId = actionId;
                             outJSON.statusCode = "500";
@@ -317,7 +327,10 @@ module.exports = function () {
                                     var SFault = extractItem(result, "S:Fault");
                                     var XMLRisposta = extractItem(result, xmlTagRisposta);
 
+                                    outJSON.batchId = batchId;
                                     outJSON.envId = envId;
+                                    outJSON.progressValue = dataId;
+                                    outJSON.progressMax = lengthOfBatch;
                                     outJSON.operationId = operationId;
                                     outJSON.actionId = actionId;
                                     outJSON.url = info.url;
@@ -347,7 +360,10 @@ module.exports = function () {
                                 });
                             } else {
                                 var outJSON = {};
+                                outJSON.batchId = batchId;
                                 outJSON.envId = envId;
+                                outJSON.progressValue = dataId;
+                                outJSON.progressMax = lengthOfBatch;
                                 outJSON.operationId = operationId;
                                 outJSON.actionId = actionId;
                                 outJSON.url = url;
@@ -366,7 +382,10 @@ module.exports = function () {
                         } else {
                             logConsole.error('batch: Errore generico');
                             var outJSON = {};
+                            outJSON.batchId = batchId;
                             outJSON.envId = envId;
+                            outJSON.progressValue = dataId;
+                            outJSON.progressMax = lengthOfBatch;
                             outJSON.operationId = operationId;
                             outJSON.actionId = actionId;
                             outJSON.statusCode = "500";
@@ -394,12 +413,17 @@ module.exports = function () {
                 res.status(200).send(locals);
             }
             var finalMsg = {
+                batchId: batchId,
+                envId: envId,
                 dataDocumento: new Date(),
-                operationId: 'Operazione terminata',
+                progressValue: lengthOfBatch,
+                progressMax: lengthOfBatch,
+                operationId: 'Batch operazioni terminate',
                 CodiceEsito: '###'
             }
             // io.emit('news', finalMsg);
-            emitterBus.eventBus.sendEvent('broadcastMessage', { sseId: 'Elezioni.js', statusCode:1000,  msg: finalMsg});
+            emitterBus.eventBus.sendEvent('broadcastMessage', 
+            { sseId: 'Elezioni.js', statusCode:1000,  msg: finalMsg});
         });
 
         // var jsonFile = require('./file_test.json'); // the above in my local directory

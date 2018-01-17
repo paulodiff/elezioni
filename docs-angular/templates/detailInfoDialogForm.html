@@ -1,0 +1,34 @@
+<div class="modal-header bg-primary">
+    <h4>Informazioni di dettaglio</h4>
+</div>
+
+<div class="modal-body">
+        <ul>
+                <li><b>batchId:</b>{{n.msg.batchId}}</li>
+                <li><b>envId:</b>{{n.msg.envId}}</li>
+                <li><b>statusCode:</b>{{n.msg.statusCode}}</li>
+                <li><b>envId:</b>{{n.msg.envId}}</li>
+                <li><b>statusCode:</b>{{n.msg.statusCode}}</li>
+                <li><b>operationId:</b>{{n.msg.operationId}}</li>
+                <li><b>actionId:</b>{{n.msg.actionId}}</li>
+                <li><b>sseId:</b>{{n.sseId}}</li>
+                <li><b>channelId:</b>{{n.channelId}}</li>
+                <li><b>progressValue:</b>{{n.msg.progressValue}}</li>
+                <li><b>progressMax:</b>{{n.msg.progressMax}}</li>
+                <li><b>url:</b>{{n.msg.url}}</li>
+                <li><b>CodiceEsito:</b>{{n.msg.CodiceEsito}}</li>
+                <li><b>DescrizioneEsito:</b>{{n.msg.DescrizioneEsito}}</li>
+                <li><b>data:</b>{{n.msg.dataDocumento}}</li>
+
+        </ul>
+            
+                <code>{{n.msg.response}}</code>
+                <pre>{{n.msg}}</pre>
+            
+</div>
+                    
+<div class="modal-footer">
+    <hr>
+    <button type="button" class="btn btn-default btn-raised" ng-click="cancel()">OK</button>
+    <!-- <button type="button" class="btn btn-success btn-raised" ng-click="save()" ng-disabled="(nameDialog.$dirty && nameDialog.$invalid) || nameDialog.$pristine">Salva</button> -->
+</div>
