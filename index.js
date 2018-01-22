@@ -237,7 +237,9 @@ app.use('/docs-angular', express.static(__dirname + '/docs-angular'));
 // socket.io
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/info.html');
+  console.log('redirect ... to docs-angular');
+  // res.sendFile(__dirname + '/info.html');
+  res.redirect('/docs-angular');
 });
 
 // socket = require('./routes/socket.js');
@@ -275,10 +277,14 @@ models.Person.hasMany(models.Nucleos);
 server.listen(app.get('port'), function() {
     console.log('Node ELEZIONI-WS start! porta: ' + ENV.server_port);
     console.log('action_url_produzione:',ENV_ELEZIONI.action_url_produzione);
-    console.log('action_url_test:',ENV_ELEZIONI.action_url_test);
+    console.log('action_url_test      :',ENV_ELEZIONI.action_url_test);
+    console.log('REST_url_produzione  :',ENV_ELEZIONI.rest_url_produzione);
+    console.log('REST_url_test        :',ENV_ELEZIONI.rest_url_test);
+    /*
     console.log('REST_url_produzione:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/produzione');
     console.log('REST_url_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/test');
     console.log('HTTP_GET_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test');
+    */
     console.log('LOG CONSOLE:','http://' + ENV.hostname + ':' + ENV.server_port +  ''); 
     console.log('KIBANA:','http://10.10.128.79:5601/app/kibana');
 

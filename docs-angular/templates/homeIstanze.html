@@ -18,29 +18,38 @@
 
           
 
-          <h3>Presentazione di istanze e dichiarazioni online (BETA)</h3>
-          <p>Il servizio permette di effettuare in modalità digitale la presentazione di istanze e dichiarazioni. Esso è basato sul Codice dell'Amministrazione Digitale (CAD), che sancisce il diritto da parte dei cittadini ad interagire con la Pubblica Amministrazione, utilizzando gli strumenti offerti dalle tecnologie ICT in alternativa alle modalità tradizionali basate su moduli cartacei. 
-          </p>
+          <h3>Elezioni - Rest/Soap Gateway per comunicazioni ministero</h3>
+          <p>Client REST per i web service Elettorali, permette di interfacciare attraverso chiamate REST il web service del Ministero per le comunicazioni elettorali.</p>
           
-<div class="alert alert-danger">
 
-  <h3>Limitazioni del servizio</h3>
+  <h3>Azioni e link</h3>
 
-  <p><span class="badge">1</span>Attraverso il presente portale è possibile inoltrare solo istanze che sono elencate alla voce "Elenco Istanze"opportunamente strutturate. A tal fine consultare il seguente indirizzo:</p>
-  <a class="btn btn-block btn-success btn-raised btn-sm" ui-sref="elencoIstanze" ui-sref-active="active">Elenco delle istanze</a>
+  <a class="btn btn-block btn-success btn-raised btn-sm" ui-sref="infoElezione" ui-sref-active="active">Log live delle operazioni</a>
 
- <p><span class="badge">2</span>Per altri procedimenti è necessario verificare che per l'istanza che si vuole inoltrare non sia già stato predisposto un procedimento digitale specifico, in quanto assicura modalità di evasione opportunamente strutturate. A tal fine consultare il seguente indirizzo:</p>
-  <a class="btn btn-block btn-raised btn-success btn-sm" href="http://www.comune.rimini.it/trasparenza-e-servizi/servizi">Comune di Rimini - Servizi online</a>
   
- <p><span class="badge">3</span>Per l'inoltro di istanze attraverso questo portale è richiesto un account FedERa o SPID
+  <a class="btn btn-lg btn-raised btn-secondary" href="http://10.10.128.79:5601/app/kibana">Kibana Log</a>
+  <a class="btn btn-lg btn-raised btn-secondary" href="https://github.com/paulodiff/elezioni">GitHub repository</a>
+  <a class="btn btn-lg btn-raised btn-secondary" href="./docs/log.html">Old - docs/log.html</a>
 
+  <h3>Parametri</h3>
        
-</div>
+  <ul>
+      <li><b>id_elezione:</b>{{n.data.id_elezione}}</li>
+      <li><b>keyFile_produzione:</b>{{n.data.keyFile_produzione}}</li>
+      <li><b>keyFile_test:</b>{{n.data.keyFile_test}}</li>
+      <li><b>log_filename:</b>{{n.data.log_filename}}</li>
+      <li><b>log_level:</b>{{n.data.log_level}}</li>
+      <li><b>elastic_url:</b>{{n.data.elastic_url}}</li>
+      <li><b>ws_call_url:</b>{{n.data.ws_call_url}}</li>
+      <li><b>action_url_produzione:</b>{{n.data.action_url_produzione}}</li>
+      <li><b>action_url_test:</b>{{n.data.action_url_test}}</li>
+      <li><b>rest_url_produzione:</b>{{n.data.rest_url_produzione}}</li>
+      <li><b>rest_url_test:</b>{{n.data.rest_url_test}}</li>
 
-<h3>Istruzioni per l'accesso al servizio</h3>
-<p>Per accedere al servizio è necessario avere o un account FedERa o un account SPID</p>
-<a class="btn btn-block btn-raised btn-info btn-sm" href=" http://federazione.lepida.it/ ">GUIDA ACCOUNT FEDERA</a>
-<a class="btn btn-block btn-raised btn-info btn-sm" href="https://www.spid.gov.it/">GUIDA ACCOUNT SPID</a>
+
+</ul>
+  
+      <pre>{{n}}</pre>
 
 <!--
   <div class="form-group">

@@ -103,6 +103,7 @@ module.exports = function () {
             request(options, function (error, response, body) {
                 if (error) {
                     logConsole.error('ELASTIC:Errore invio richiesta ...');
+                    logConsole.error(error);
                     // console.log(error);
                     reject(error);
                 }
@@ -110,6 +111,8 @@ module.exports = function () {
                     resolve(response);
                 } else {
                     // console.log('Errore invio richiesta ...', response);
+                    logConsole.error('ELASTIC:Errore invio richiesta ...');
+                    logConsole.error(response);
                     reject(response);
                 }
             });
@@ -345,6 +348,8 @@ module.exports = function () {
                                     if(Esito.length > 0) {
                                         outJSON.CodiceEsito = Esito[0].CodiceEsito[0];
                                         outJSON.DescrizioneEsito = Esito[0].DescrizioneEsito[0];
+                                        outJSON.DescrizioneLungaEsito = Esito[0].DescrizioneLungaEsito[0];
+                                        outJSON.MessageToken = Esito[0].MessageToken[0];
                                     } else {
                                         outJSON.CodiceEsito = SFault[0].faultcode[0];
                                         outJSON.DescrizioneEsito = SFault[0].faultstring[0];

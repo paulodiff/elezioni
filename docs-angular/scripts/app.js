@@ -78,7 +78,7 @@ angular.module('myApp', [//'ionic',
     //.when('/c?id', '/contacts/:id')
     //.when('/user/:id', '/contacts/:id')
     // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
-    $urlRouterProvider.otherwise('profile');
+    $urlRouterProvider.otherwise('homeIstanze');
     
 /*
     $stateProvider.state('menu', {

@@ -155,6 +155,26 @@ angular.module('myApp.controllers')
       
     };
 
+    $scope.postTestData = function() {
+
+        $log.info('queueMgrCtrl: postTestData');
+        var fullApiEndpoint = ENV.rest_url_test; 
+        $log.info('queueMgrCtrl: api : ' + fullApiEndpoint );
+
+        return $http({ 
+            url: fullApiEndpoint, 
+            method: "POST"
+          }, $scope.testData)
+            .then(function (res) {
+                $log.info('queueMgrCtrl : setting data');
+                $log.info(res.data);
+                // $scope.user = res.data;
+            })
+            .catch(function(response) {
+                console.log(response);
+            });
+    };
+
     $scope.testSse = function() {
 
         $log.info('queueMgrCtrl: uploadCsv');
@@ -300,6 +320,111 @@ angular.module('myApp.controllers')
     $scope.getProfile();
 
     */
+
+
+    $scope.testData = [
+         {
+          "action": {
+            "operationId": "recuperaVotantiReferendum",
+            "actionId": "showXML"
+          },
+          "data": {
+            "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+            "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+            "CodiceComune": "140",
+            "CodiceProvincia": "101",
+            "TipoElezione": "7",
+            "DataElezione": "3016-12-04",
+            "LivelloAcquisizione": "S",
+            "CodiceSezione": "2",
+            "NumeroProgressivoArea": "71010140000002",
+            "NumeroScheda": "1",
+            "DataOraInizioComunicazione": "3016-12-04T12:00:00",
+            "NumeroTotale": "100"
+          }
+        },
+        {
+          "action": {
+            "operationId": "recuperaVotantiReferendum",
+            "actionId": "showXML"
+          },
+          "data": {
+            "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+            "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+            "CodiceComune": "140",
+            "CodiceProvincia": "101",
+            "TipoElezione": "7",
+            "DataElezione": "3016-12-04",
+            "LivelloAcquisizione": "S",
+            "CodiceSezione": "2",
+            "NumeroProgressivoArea": "71010140000002",
+            "NumeroScheda": "1",
+            "DataOraInizioComunicazione": "3016-12-04T12:00:00",
+            "NumeroTotale": "100"
+          }
+        },
+        {
+          "action": {
+            "operationId": "recuperaVotantiReferendum",
+            "actionId": "showXML"
+          },
+          "data": {
+            "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+            "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+            "CodiceComune": "140",
+            "CodiceProvincia": "101",
+            "TipoElezione": "7",
+            "DataElezione": "3016-12-04",
+            "LivelloAcquisizione": "S",
+            "CodiceSezione": "2",
+            "NumeroProgressivoArea": "71010140000002",
+            "NumeroScheda": "1",
+            "DataOraInizioComunicazione": "3016-12-04T12:00:00",
+            "NumeroTotale": "100"
+          }
+        },
+        {
+          "action": {
+            "operationId": "recuperaVotantiReferendum",
+            "actionId": "showXML"
+          },
+          "data": {
+            "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+            "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+            "CodiceComune": "140",
+            "CodiceProvincia": "101",
+            "TipoElezione": "7",
+            "DataElezione": "3016-12-04",
+            "LivelloAcquisizione": "S",
+            "CodiceSezione": "2",
+            "NumeroProgressivoArea": "71010140000002",
+            "NumeroScheda": "1",
+            "DataOraInizioComunicazione": "3016-12-04T12:00:00",
+            "NumeroTotale": "100"
+          }
+        },
+        {
+          "action": {
+            "operationId": "recuperaVotantiReferendum",
+            "actionId": "showXML"
+          },
+          "data": {
+            "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+            "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+            "CodiceComune": "140",
+            "CodiceProvincia": "101",
+            "TipoElezione": "7",
+            "DataElezione": "3016-12-04",
+            "LivelloAcquisizione": "S",
+            "CodiceSezione": "2",
+            "NumeroProgressivoArea": "71010140000002",
+            "NumeroScheda": "1",
+            "DataOraInizioComunicazione": "3016-12-04T12:00:00",
+            "NumeroTotale": "100"
+          }
+        }];
+    
+
 
   }])
 

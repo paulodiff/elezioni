@@ -204,6 +204,7 @@
     <script src="scripts/sseService.js"></script> 
     <script src="scripts/utilsService.js"></script>
     <script src="scripts/queueService.js"></script>
+    <script src="scripts/elezioniService.js"></script>
     <!-- <script src="scripts/sigService.js"></script>  -->
     <!-- <script src="scripts/socketService.js"></script> -->
     <!-- <script src="scripts/chatService.js"></script> --> 
@@ -268,7 +269,8 @@
                 <!-- <li><a ui-sref="elencoIstanze">Elenco Istanze</a></li> -->
                 <li ng-if="isAuthenticated()"><a ui-sref="elencoAtti">Elezioni</a></li>
                 <li ng-if="isAdmin()"><a ui-sref="postaDashboard">Stat</a></li>
-                <li ng-if="!isAuthenticated()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
+                <!-- <li ng-if="!isAuthenticated()"><a ui-sref="login" ui-sref-active="active">Login</a></li> -->
+                <li ng-if="!isAuthenticated()"><a ui-sref="homeIstanze" ui-sref-active="active">Home</a></li>
                 <li ng-if="!isAuthenticated()"><a ui-sref="infoElezione" ui-sref-active="active">Info Elezione</a></li>
                 <li ng-if="isAuthenticated()"><a ui-sref="profile">Profilo</a></li>
                 <li ng-if="isAuthenticated()"><a ui-sref="logout" ui-sref-active="active">Esci</a></li>

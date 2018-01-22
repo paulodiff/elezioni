@@ -126,7 +126,7 @@ $ nodemon
 ```
 
 Viene avviato il server pronto per eseguire la chiamata.
-Se si apre la pagina http://server:port/docs/log.html si ha un log in tempo reale delle operazioni
+Se si apre la pagina http://server:port si ha un log in tempo reale delle operazioni nella versione Angular Log
 
 ## Chiamata REST (consiglio Postman - plugin di Google Chrome)
 
@@ -134,8 +134,8 @@ Se si apre la pagina http://server:port/docs/log.html si ha un log in tempo real
 
 - ApiEndpoint
 
-    http://server:port/elezioni/batch/produzione (chiamata in produzione)
-    http://server:port/elezioni/batch/test (chiamata in test)
+ - - http://server:port/elezioni/batch/produzione (chiamata in produzione)
+ - - http://server:port/elezioni/batch/test (chiamata in test)
 
 - E' necessario impostare l'URL del servizio a "http://server:port/elezioni/batch/produzione"
 
