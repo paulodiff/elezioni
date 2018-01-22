@@ -223,7 +223,10 @@ module.exports = function () {
     // chiamate di test per verificare il funzionamento degli eventi live
     router.get('/testSse/:sseId', function (req, res) {
         console.log('testSse', req.params.sseId);
-        emitterBus.eventBus.sendEvent('logMessage', { sseId: req.params.sseId, msg: 'ooook'});
+        emitterBus.eventBus.sendEvent('logMessage', { 
+            sseId: req.params.sseId, 
+            msg: {progressValue : 50, progressMax : 100} 
+        });
         res.send('WS-ELEZIONI testSse OK! ');
     })
 

@@ -248,10 +248,10 @@ angular.module('myApp.services', [])
     
     isAdmin: function () {
         // TODO
-        $log.info('AuthService isAdmin');
+        //$log.info('AuthService isAdmin');
 
         
-        $log.info( 'AuthService set userData to storage');
+        //$log.info( 'AuthService set userData to storage');
         if($localStorage.userData){
           return $localStorage.userData.isAdmin;
         }

@@ -7,6 +7,7 @@ angular.module('myApp.controllers')
   $scope.btnCheck = false;
   $scope.n = {};
 
+
   console.log('homeCtrl:getConfig');
 
   $scope.goToInviaIstanza = function(){

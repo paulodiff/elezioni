@@ -2,8 +2,8 @@ angular.module('myApp.controllers')
 
   .controller('queueMgrCtrl', 
 
-           ['$scope', '$http', 'dialogs',  '$rootScope', 'AuthService', 'SseService', '$state','ENV', '$log','AlertService',
-    function($scope,   $http,  dialogs,     $rootScope,   AuthService,   SseService, $state,  ENV ,  $log, AlertService ) {
+           ['$scope', '$http', 'dialogs',  '$rootScope',  'SseService', '$state','ENV', '$log','AlertService',
+    function($scope,   $http,  dialogs,     $rootScope,   SseService, $state,  ENV ,  $log, AlertService ) {
 
     console.log('StartUP!');
     $scope.channelId = SseService.getChannelId();
@@ -114,6 +114,9 @@ angular.module('myApp.controllers')
     $scope.progress.Max = 100;
     $scope.progress.ValuePercent = 1;
 
+    $scope.gauge = {};
+    $scope.gauge.value = 0;
+
     $scope.test1 = function(p){
         $log.info(p);
         $log.info('queueMgrCtrl : test1info');
@@ -177,9 +180,13 @@ angular.module('myApp.controllers')
 
     $scope.testSse = function() {
 
-        $log.info('queueMgrCtrl: uploadCsv');
+        $log.info('queueMgrCtrl: testSse');
         var fullApiEndpoint = $rootScope.base_url + '/' + ENV.apiElezioni + '/testSse/' + SseService.getChannelId(); 
         $log.info('queueMgrCtrl: api : ' + fullApiEndpoint );
+
+        console.log((Math.random() * 100).toFixed(1));
+        $scope.gauge.value = (Math.random() * 100).toFixed(1);
+        console.log($scope.gauge.value);
 
         return $http({ 
             url: fullApiEndpoint, 
@@ -219,16 +226,16 @@ angular.module('myApp.controllers')
         $log.info('queueMgrCtrl: tweets', response);
         var tweets = JSON.parse(response.data);
         $log.info(tweets);
-        $log.info(tweets.msg.progressMax);
-        $log.info(tweets.msg.progressValue);
-        $log.info('queueMgrCtrl log msg :',tweets.msg.itemN,tweets.msg.txt);
+        valPercent = (parseInt(tweets.msg.progressValue)) / tweets.msg.progressMax * 100;
+        $log.info(tweets.msg.progressMax, parseInt(tweets.msg.progressValue), valPercent);
         $scope.$apply( function() {
             // $scope.logList.unshift(tweets);
             $scope.logList.push(tweets);
             // $scope.progress.Value = tweets.msg.progressValue;
             $scope.progress.Max = 100;
-            $scope.progress.ValuePercent = (parseInt(tweets.msg.progressValue) + 1) / tweets.msg.progressMax * 100;
-            console.log($scope.progress.ValuePercent);
+            $scope.progress.ValuePercent = valPercent;
+            $scope.gauge.value = parseInt(valPercent);
+            // console.log($scope.gauge.value);
         });
 
         /*

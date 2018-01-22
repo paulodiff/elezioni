@@ -1,0 +1,206 @@
+[
+{
+    "action": {
+        "operationId": "recuperaEventiElettorali",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoAreaAcquisizione",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoAreaAcquisizioneVotantiCamera",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoAreaAcquisizioneVotantiSenato",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaSezioniCamera",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140",
+        "CodiceCollegio": "199"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaSezioniSenato",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140",
+        "CodiceCollegio": "199"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoElettoriCamera",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "DataOraInizioComunicazione" : "3016-12-04T12:00:00",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoElettoriSenato",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "DataOraInizioComunicazione" : "3016-12-04T12:00:00",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaVotantiCamera",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "DataOraInizioComunicazione" : "3016-12-04T12:00:00",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaVotantiSenato",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "DataOraInizioComunicazione" : "3016-12-04T12:00:00",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoCandidatiListeCamera",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaInfoCandidatiListeSenato",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaScrutiniCamera",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "CodiceRegione": "999",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140"
+    }
+},
+
+{
+    "action": {
+        "operationId": "recuperaScrutiniSenato",
+        "actionId": "showXML"
+    },
+    "data": {
+        "UserID": "cm4ucmltaW5pLndlYnNlcnZpY2UuZ2lhY29taW5p",
+        "Password": "UklNSU5JLnJlZjEyMjAxNg==",
+        "DataElezione": "3016-12-04",
+        "TipoElezione": "7",
+        "CodiceRegione": "999",
+        "CodiceProvincia": "101",
+        "CodiceComune": "140"
+    }
+}
+]

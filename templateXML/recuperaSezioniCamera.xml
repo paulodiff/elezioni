@@ -7,11 +7,12 @@
             <elet:Password>{{Password}}</elet:Password>
         </elet:Utente> 
         <elet:Evento>
-            <elet:TipoElezione>{{TipoElezione}}</elet:TipoElezione>
             <elet:DataElezione>{{DataElezione}}</elet:DataElezione>
+            <elet:TipoElezione>{{TipoElezione}}</elet:TipoElezione>
         </elet:Evento>
         <elet:CodiceProvincia>{{CodiceProvincia}}</elet:CodiceProvincia>
         <elet:CodiceComune>{{CodiceComune}}</elet:CodiceComune>
+        <elet:CodiceCollegio>{{CodiceCollegio}}</elet:CodiceCollegio>
     </elet:ParametriRichiestaSezioni>
 </soapenv:Body>
 </soapenv:Envelope>
