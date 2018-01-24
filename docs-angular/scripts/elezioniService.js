@@ -15,9 +15,9 @@ angular.module('myApp.services')
 
 
     getConfig: function() {
-         $log.debug('ElezioniService: getData');
-         var fullApiEndpoint = $rootScope.base_url + '/' + ENV.apiElezioni + '/getConfig'; 
-         $log.debug('ElezioniService: api : ' + fullApiEndpoint );
+         $log.info('ElezioniService: getData');
+         var fullApiEndpoint = ENV.apiEndpoint + '/' + ENV.apiElezioni + '/getConfig'; 
+         $log.info('ElezioniService: api : ' + fullApiEndpoint );
          return $http({ url: fullApiEndpoint,  method: "GET" });
     }
 

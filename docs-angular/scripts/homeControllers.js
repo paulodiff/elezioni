@@ -8,7 +8,7 @@ angular.module('myApp.controllers')
   $scope.n = {};
 
 
-  console.log('homeCtrl:getConfig');
+  console.log('homeCtrl: start controller');
 
   $scope.goToInviaIstanza = function(){
       console.log('state.go...protocollo');
@@ -16,7 +16,7 @@ angular.module('myApp.controllers')
   }
 
   function initData(){
-    $log.info('homeCtrl : getConfig');
+        $log.info('homeCtrl:getConfig');
         ElezioniService.getConfig().then(function(data) {
             $log.info('queueMgrCtrl : getConfig queue');
             $log.info(data);

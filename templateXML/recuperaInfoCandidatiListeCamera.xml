@@ -10,6 +10,6 @@
             <elet:DataElezione>{{DataElezione}}</elet:DataElezione>
             <elet:TipoElezione>{{TipoElezione}}</elet:TipoElezione>
         </elet:Evento>
-    </elet:ParametriRichiestaRecuperaElettori>
+    </elet:ParametriRichiesta>
 </soapenv:Body>
 </soapenv:Envelope>

@@ -13,6 +13,7 @@ module.exports = {
     elastic_url : 'http://10.10.128.79:9200/elezioni/politiche2018/',
     // eventuale proxy
     // proxy_url : 'http://proxy1.comune.rimini.it:8080',
+    proxy_url_soap : 'http://proxy1.comune.rimini.it:8080',
     
     // ELENCO DI TUTTE LE AZIONI WEB SERVICE
     // Per ogni azioni è impostato un oggetto di questo tipo 
@@ -25,6 +26,38 @@ module.exports = {
     //    
     // }
     //
+
+    /*
+Test COMUNI
+
+Servizi Base
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSBase/ServiziElettoraliPort?wsdl
+
+Sezioni
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSCameraSezioni/ServiziElettoraliPort?wsdl
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSSenatoSezioni/ServiziElettoraliPort?wsdl
+
+Elettori
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSCameraElettori/ServiziElettoraliPort?wsdl
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSSenatoElettori/ServiziElettoraliPort?wsdl
+
+Votanti
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSCameraVotanti/ServiziElettoraliPort?wsdl
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSSenatoVotanti/ServiziElettoraliPort?wsdl
+
+Scrutini
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSCameraScrutini/ServiziElettoraliPort?wsdl
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSSenatoScrutini/ServiziElettoraliPort?wsdl
+
+SWAP
+https://elettoralews.preprod.interno.it/ServiziElettoraliWSSWAPPolitiche/ServiziElettoraliPort?wsdl
+
+
+
+    */
+
+
+    /* RECUPERO DATI */
 
     recuperaEventiElettorali: {
         templateFileName : './templateXML/recuperaEventiElettorali.xml', // template file per la generazione xml
@@ -124,78 +157,144 @@ module.exports = {
         xmlTagRisposta : 'ScrutiniRec'
     },
 
-    /*
-    recuperaInfoAreaAcquisizioneVotantiReferendum: {
-        templateFileName : './templateXML/recuperaInfoAreaAcquisizioneVotantiReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        xmlTagRisposta : 'InfoAreaAcquisizioneVotanti'
-    },
-    */
+    /* INVIO DATI */
 
-    recuperaInfoQuesiti: {
-        templateFileName : './templateXML/recuperaInfoQuesiti.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        xmlTagRisposta : 'InfoQuesitiReferendum'
-    },
-
-    recuperaInfoElettoriReferendum: {
-        templateFileName : './templateXML/recuperaInfoElettoriReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
-        xmlTagRisposta : 'ElencoElettori'
-    },
-
-    recuperaSezioniReferendum: {
-        templateFileName : './templateXML/recuperaSezioniReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumSezioni/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumSezioni/ServiziElettoraliPort',
-        xmlTagRisposta : 'InfoAreaAcquisizioneSezioni'
-    },
-
-    recuperaVotantiReferendum: {
-        templateFileName : './templateXML/recuperaVotantiReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        xmlTagRisposta : 'InfoAreaAcqVotantiRec'
-    },
-
-    recuperaScrutiniReferendum: {
-        templateFileName : './templateXML/recuperaScrutiniReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumScrutini/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumScrutini/ServiziElettoraliPort',
-        xmlTagRisposta : 'Scrutini'
-    },
-
-    inviaSezioniReferendum: {
-        templateFileName : './templateXML/inviaSezioniReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumSezioni/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumSezioni/ServiziElettoraliPort',
-        xmlTagRisposta : 'Esito'
-    },
-
-    inviaElettoriReferendum: {
-        templateFileName : './templateXML/inviaElettoriReferendum.xml',
+    InviaSezioniCamera: {
+        templateFileName : './templateXML/InviaSezioniCamera.xml',
         endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
         endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
         xmlTagRisposta : 'Esito'
     },
 
-    inviaVotantiReferendum: {
-        templateFileName : './templateXML/inviaVotantiReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumVotanti/ServiziElettoraliPort',
+    InviaSezioniSenato: {
+        templateFileName : './templateXML/InviaSezioniSenato.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    InviaElettoriCamera: {
+        templateFileName : './templateXML/InviaElettoriCamera.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    InviaElettoriSenato: {
+        templateFileName : './templateXML/InviaElettoriSenato.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    InviaVotantiCamera: {
+        templateFileName : './templateXML/InviaVotantiCamera.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    InviaVotantiSenato: {
+        templateFileName : './templateXML/InviaVotantiSenato.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    InviaScrutiniCamera: {
+        templateFileName : './templateXML/InviaScrutiniCamera.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    InviaScrutiniSenato: {
+        templateFileName : './templateXML/InviaScrutiniSenato.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    /* TEST */
+
+    ripristinaStato1Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    ripristinaStato2Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
         xmlTagRisposta : 'Esito'
     },
     
-    inviaScrutiniReferendum: {
-        templateFileName : './templateXML/inviaScrutiniReferendum.xml',
-        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumScrutini/ServiziElettoraliPort',
-        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumScrutini/ServiziElettoraliPort',
+    ripristinaStato3Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
         xmlTagRisposta : 'Esito'
     },
 
+    ripristinaStato4Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    ripristinaStato5Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    migrazioneStato1Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    migrazioneStato2Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    migrazioneStato3Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    migrazioneStato4Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    migrazioneStato5Politiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    validazioneUltimaVotantiPolitiche: {
+        templateFileName : './templateXML/ripristinaStato1Politiche.xml',
+        endpoint_produzione : 'https://elettoralews.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        endpoint_test : 'https://elettoralews.preprod.interno.it/ServiziElettoraliWSReferendumElettori/ServiziElettoraliPort',
+        xmlTagRisposta : 'Esito'
+    },
+
+    
     // NON MODIFICARE I SEGUENTI
     ws_call_url : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/wscall/',
     action_url_produzione : 'http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/produzione/',

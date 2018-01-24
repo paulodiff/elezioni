@@ -1,7 +1,7 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:elet="http://it.mininterno.sie/elettorale">
     <soapenv:Header/>
     <soapenv:Body>
-    <elet:ParametriRichiestaRecuperaScrutini>
+    <elet:ParametriRichiesta>
         <elet:Utente>
             <elet:UserID>{{UserID}}</elet:UserID>
             <elet:Password>{{Password}}</elet:Password>
@@ -10,9 +10,8 @@
             <elet:DataElezione>{{DataElezione}}</elet:DataElezione>
             <elet:TipoElezione>{{TipoElezione}}</elet:TipoElezione>
         </elet:Evento>
-        <elet:CodiceRegione>{{CodiceRegione}}</elet:CodiceRegione>
         <elet:CodiceProvincia>{{CodiceProvincia}}</elet:CodiceProvincia>
         <elet:CodiceComune>{{CodiceComune}}</elet:CodiceComune>
-    </elet:ParametriRichiestaRecuperaScrutini>
+    </elet:ParametriRichiesta>
 </soapenv:Body>
 </soapenv:Envelope>

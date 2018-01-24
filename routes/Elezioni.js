@@ -139,11 +139,13 @@ module.exports = function () {
             var handlers = [sec, new ws.Http()];
             var ctx = {
                 request: request,
-                proxy: ENV_ELEZIONI.proxy_url,
+                proxy: ENV_ELEZIONI.proxy_url_soap,
                 url: endpoint,
                 action: operationId,
                 contentType: "text/xml"
             };
+            
+            logConsole.info("SENDSOAP: ctx ", ctx);
 
             ws.send(handlers, ctx, function (ctx) {
                 logConsole.info("SENDSOAP: status " + ctx.statusCode);
