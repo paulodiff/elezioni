@@ -25,43 +25,14 @@ var parser = new xml2js.Parser();
 var uuid = require('uuid');
 // var SAMPLE_DATA = require ('../tmp/sampleData');
 var emitterBus = require("../models/emitterModule.js");
-
+var logConsole = require('../models/loggerModuleWinston.js');
+logConsole.info('START Module Elezioni.js');
 
 var ACCESS_CONTROLL_ALLOW_ORIGIN = false;
 // var DW_PATH = (path.join(__dirname, './storage'));
 // var DW_PATH = './storage';
 // var DW_PATH = ENV.storagePath;
 var _ = require('lodash');
-
-var log4js = require('log4js');
-log4js.configure({
-    appenders: [
-        { type: 'console' },
-        {
-            type: 'file',
-            filename: 'log/error-' + ENV_ELEZIONI.log_filename,
-            category: 'error-file-logger',
-            maxLogSize: 120480,
-            backups: 10
-        },
-        {
-            type: 'file',
-            filename: 'log/access-' + ENV_ELEZIONI.log_filename,
-            category: 'access-file-logger',
-            maxLogSize: 120480,
-            backups: 10
-        }
-    ]
-});
-
-var logConsole = log4js.getLogger(); // info(...) error(....)
-var log2fileError = log4js.getLogger('error-file-logger');
-log2fileError.setLevel(ENV_ELEZIONI.log_level);
-
-// var log2fileAccess = log4js.getLogger('access-file-logger');
-
-logConsole.info('START ELEZIONI');
-// log2fileAccess.info('START ELEZIONI');
 
 
 module.exports = function () {
@@ -87,7 +58,7 @@ module.exports = function () {
             // "PUT http://10.10.128.79:9200/velox3/velocita/" & uuid & " -d @" & sFTPTempFile"
             // locals.push(sampleData[dataId]);
             url = ENV_ELEZIONI.elastic_url + my_uuid;
-            logConsole.info('Elastic:url',url);
+            logConsole.info('Elastic:url:'+ url);
 
             // console.log(data);
 
@@ -148,11 +119,11 @@ module.exports = function () {
             logConsole.info("SENDSOAP: ctx ", ctx);
 
             ws.send(handlers, ctx, function (ctx) {
-                logConsole.info("SENDSOAP: status " + ctx.statusCode);
+                logConsole.info("SENDSOAP: status :" + ctx.statusCode);
 
                 if (ctx.statusCode != 200) {
+                    logConsole.error("SENDSOAP: reject ");
                     logConsole.error(ctx);
-                    logConsole.info("SENDSOAP: reject ");
                     reject(ctx);
                 } else {
                     logConsole.info("SENDSOAP: resolve ");
@@ -243,11 +214,11 @@ module.exports = function () {
     router.post('/batch/:envId', function (req, res) {
 
         // var io = req.app.get('socketio');
-        logConsole.info('batch:');
+        logConsole.info('BATCH:');
         var envId = req.params.envId;
         if( (envId == "test") || (envId == "produzione") ) { 
         } else {
-            logConsole.error('batch:envId NON TROVATA');
+            logConsole.error('BATCH:envId NON TROVATA');
             res.status(500).send('envId: ' + envId + ' NON TROVATO (test/produzione)');
             return;
         }
@@ -257,14 +228,14 @@ module.exports = function () {
         var sampleData = req.body;        
         var locals = [];
 
-        logConsole.info('batch:lenght', sampleData.length);
+        logConsole.info('BATCH:lenght:' + sampleData.length);
         var lengthOfBatch = sampleData.length;
 
         async.forEachSeries(Object.keys(sampleData), function (dataId, callback) {
             
-            logConsole.info('batch:dataId:', dataId);
-            logConsole.info('batch:operationId:',sampleData[dataId].action.operationId);
-            logConsole.info('batch:actionId:',sampleData[dataId].action.actionId);
+            logConsole.info('BATCH:dataId:' + dataId);
+            logConsole.info('BATCH:operationId:'+ sampleData[dataId].action.operationId);
+            logConsole.info('BATCH:actionId:' + sampleData[dataId].action.actionId);
 
             var operationId = sampleData[dataId].action.operationId;
             var actionId = sampleData[dataId].action.actionId;
@@ -277,8 +248,8 @@ module.exports = function () {
                 logConsole.info('batch:---:');
             }
              
-            logConsole.info('batch:xmlTagRisposta:', xmlTagRisposta);
-            logConsole.info('batch:actionUrl:', url);
+            logConsole.info('BATCH:xmlTagRisposta:' + xmlTagRisposta);
+            logConsole.info('BATCH:actionUrl:' + url);
 
             // locals.push(sampleData[dataId]);
             // console.log('Request .....');
@@ -290,16 +261,18 @@ module.exports = function () {
 
             if (ENV_ELEZIONI.proxy_url) options.proxy = ENV_ELEZIONI.proxy_url;
 
-            logConsole.info('batch:request:', options);
+            logConsole.info('BATCH:request:options --- START ---');
+            logConsole.info(options);
+            logConsole.info('BATCH:request:options --- END  ----');
 
             setTimeout(
 
                 function () {
 
                     request(options, function (error, response, body) {
-                        logConsole.info('batch: check response:');
+                        logConsole.info('BATCH: check response:');
                         if (error) {
-                            logConsole.error('batch: Errore invio richiesta ...');
+                            logConsole.error('BATCH: Errore invio richiesta ...');
                             logConsole.error(error);
                             var outJSON = {};
 
@@ -322,7 +295,7 @@ module.exports = function () {
                         }
                         if (!error && response.statusCode == 200) {
 
-                            logConsole.info('batch: response OK : ', actionId);
+                            logConsole.info('BATCH: response OK : ' + actionId);
                             // console.log(response.body);
 
                             if (actionId == "sendXML") {
@@ -347,17 +320,17 @@ module.exports = function () {
                                     outJSON.response = info.response;
                                     outJSON.xmlResponse = XMLRisposta;
 
-                                    // console.log(Esito);
+                                    logConsole.info(Esito);
                                     // console.log(SFault);
 
                                     if(Esito.length > 0) {
-                                        outJSON.CodiceEsito = Esito[0].CodiceEsito[0];
-                                        outJSON.DescrizioneEsito = Esito[0].DescrizioneEsito[0];
-                                        outJSON.DescrizioneLungaEsito = Esito[0].DescrizioneLungaEsito[0];
-                                        outJSON.MessageToken = Esito[0].MessageToken[0];
+                                        outJSON.CodiceEsito = Esito[0].CodiceEsito;
+                                        outJSON.DescrizioneEsito = Esito[0].DescrizioneEsito;
+                                        outJSON.DescrizioneLungaEsito = Esito[0].DescrizioneLungaEsito;
+                                        outJSON.MessageToken = Esito[0].MessageToken;
                                     } else {
-                                        outJSON.CodiceEsito = SFault[0].faultcode[0];
-                                        outJSON.DescrizioneEsito = SFault[0].faultstring[0];
+                                        outJSON.CodiceEsito = SFault[0].faultcode;
+                                        outJSON.DescrizioneEsito = SFault[0].faultstring;
                                     }
 
                                     outJSON.dataDocumento = new Date();
@@ -390,7 +363,7 @@ module.exports = function () {
                                 callback();
                             }
                         } else {
-                            logConsole.error('batch: Errore generico');
+                            logConsole.error('BATCH: Errore generico');
                             var outJSON = {};
                             outJSON.batchId = batchId;
                             outJSON.envId = envId;
@@ -416,10 +389,11 @@ module.exports = function () {
         }, function (err) {
             //When done
             if (err) {
-                logConsole.error('batch:FINAL Errore generico', err);
+                logConsole.error('BATCH:FINAL Errore generico');
+                logConsole.error(err);
                 res.status(500).send(err);
             } else {
-                logConsole.info('batch:FINAL OK send locals');
+                logConsole.info('BATCH:FINAL Success! send locals');
                 res.status(200).send(locals);
             }
             var finalMsg = {
@@ -428,7 +402,7 @@ module.exports = function () {
                 dataDocumento: new Date(),
                 progressValue: lengthOfBatch,
                 progressMax: lengthOfBatch,
-                operationId: 'Batch operazioni terminate',
+                operationId: 'BATCH operazioni terminate',
                 CodiceEsito: '###'
             }
             // io.emit('news', finalMsg);
@@ -475,29 +449,29 @@ module.exports = function () {
             return;
         }
                 
-        logConsole.info('WSCALL:envId:', envId);
-        logConsole.info('WSCALL:operationId:', operationId);
-        logConsole.info('WSCALL:actionId:', actionId);
-        logConsole.info('WSCALL:keyFile:', keyFile);
+        logConsole.info('WSCALL:envId      :'+ envId);
+        logConsole.info('WSCALL:operationId:'+ operationId);
+        logConsole.info('WSCALL:actionId   :'+ actionId);
+        logConsole.info('WSCALL:keyFile    :'+ keyFile);
 
         // recupera la configurazione
         if (ENV_ELEZIONI[operationId]) { 
             if (envId == "test")        endpoint = ENV_ELEZIONI[operationId].endpoint_test;
             if (envId == "produzione")  endpoint = ENV_ELEZIONI[operationId].endpoint_produzione;
         } else {
-            logConsole.error('SO:operationId NON TROVATA');
+            logConsole.error('WSCALL:operationId NON TROVATA');
             res.status(500).send('operationId: ' + operationId + ' (Url:/produzione/:operationId/:actionId) NON TROVATA in configurazione');
             return;
         }
 
-        logConsole.info('WSCALL:endpoint:', endpoint);
+        logConsole.info('WSCALL:endpoint:'+ endpoint);
 
         var xmlTagRisposta = ENV_ELEZIONI[operationId].xmlTagRisposta;
-        logConsole.info('WSCALL:xmlTagRisposta:', xmlTagRisposta);
+        logConsole.info('WSCALL:xmlTagRisposta:'+ xmlTagRisposta);
 
         // load template
         var templateFileName = ENV_ELEZIONI[operationId].templateFileName;
-        logConsole.info('WSCALL:template:', templateFileName);
+        logConsole.info('WSCALL:template:'+ templateFileName);
 
         var fileContents = '';
 
@@ -521,21 +495,21 @@ module.exports = function () {
         }
 
         if (actionId == 'sendXML') {
-            logConsole.info('SO:sendSoap .....:');
+            logConsole.info('WSCALL:sendSoap');
             sendSoap(operationId, endpoint, xmlBuilded, keyFile).then(function (result) {
                 if (result.statusCode == 200) {
                     logConsole.info('WSCALL:sendXML OK:');
-                    logConsole.info('WSCALL:sendXML statusCode:', result.statusCode);
+                    logConsole.info('WSCALL:sendXML statusCode:' + result.statusCode);
                     // console.log(result.response);
                     res.status(200).send(result);
                 } else {
-                    log2fileError.error(result);
-                    logConsole.error('WSCALL:ERROR1:', error);
-                    res.status(500).send('ERRORE GRAVE - VEDERE LOG.');
+                    logConsole.error('WSCALL:ERROR1:');
+                    logConsole.error(error);
+                    res.status(500).send('WSCALL:ERRORE GRAVE - VEDERE LOG.');
                 }
             }).catch(function (err) {
-                    log2fileError.error(err);
-                    logConsole.error('WSCALL:ERROR2:', err);
+                    logConsole.error('WSCALL:ERROR2:');
+                    logConsole.error(err);
                     res.status(500).send(err);
             });
 

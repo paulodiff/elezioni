@@ -37,8 +37,8 @@ emitterBus.eventBus.on('logMessage', function(data) {
 });
 
 emitterBus.eventBus.on('broadcastMessage', function(data) {
-  console.log('#SSE#:broadcast ARRIVED!');
-  console.log(data);
+  console.log('#SSE#:broadcast received ... data ...');
+  //console.log(data);
 
   for (var userId in clients){
     console.log('#SSE# SEND BROADCAST DATA to', userId);

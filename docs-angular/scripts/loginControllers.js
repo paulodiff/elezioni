@@ -43,12 +43,16 @@ angular.module('myApp.controllers')
         var host = $location.host();
         //console.log(host); 
 
+        /*
         if( host  == 'localhost') {
             $rootScope.base_url = 'http://localhost:8009';
         } else {
             //$rootScope.base_url = 'https://istanze-dichiarazioni.comune.rimini.it/federa';
             $rootScope.base_url = ENV.apiEndpoint;
         }
+        */
+
+        $rootScope.base_url = ENV.apiEndpoint;
 
         // autenticazione
         // Controlla se un reload ricarica il JWT su http header

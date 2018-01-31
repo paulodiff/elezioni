@@ -217,7 +217,14 @@ curl -X POST -H "Content-Type: application/json" -d '[
             }
 ]' "http://server:port/elezioni/batch/produzione"
 ```
+### Esportazione dei certificati PK12 to PEM
 
+openssl pkcs12 -in path.p12 -out newfile.crt.pem -clcerts -nokeys
+openssl pkcs12 -in path.p12 -out newfile.key.pem -nocerts -nodes
+
+poi unire newfile.key.pem ewfile.crt.pem in test.pem
+
+poi si uniscono i due certificati
 
 Riferimenti
 -----------

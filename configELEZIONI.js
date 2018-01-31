@@ -6,7 +6,7 @@ module.exports = {
 
     id_elezione : 'POLITICHE_2018',
     keyFile_produzione : './tmp/produzione2.pem', // certificato ambiente di produzione
-    keyFile_test : './tmp/test.pem',     // certificato ambiente di test
+    keyFile_test : './tmp/completo-test2018.pem',     // certificato ambiente di test
     log_filename: 'POLITICHE_2018.log', // nome del file di log inserito nella cartella ./log
     log_level : 'DEBUG', // ERROR
     // url MongoDB dove viene inviato un PUT con la risposta generata (per Monitoraggio) - opzionale

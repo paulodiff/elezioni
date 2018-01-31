@@ -142,6 +142,10 @@ app.use(bodyParser.json({
 }))
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* logger */
+
+var log = require('./models/loggerModuleWinston.js');
+log.info('Starting server ..');
 
 
 // MongoDb pool create
@@ -237,7 +241,7 @@ app.use('/docs-angular', express.static(__dirname + '/docs-angular'));
 // socket.io
 
 app.get('/', function (req, res) {
-  console.log('redirect ... to docs-angular');
+  log.info('redirect ... to docs-angular');
   // res.sendFile(__dirname + '/info.html');
   res.redirect('/docs-angular');
 });
@@ -257,9 +261,9 @@ app.get(['/test', '/1produzione/:id1/:id2', '/2test/:id1/id2'], function (req, r
 // CSP violation!
 app.post('/report-violation', function (req, res) {
   if (req.body) {
-    log.log2console('CSP Violation: ', req.body);
+    log.info('CSP Violation: ', req.body);
   } else {
-    log.log2console('CSP Violation: No data received!');
+    log.info('CSP Violation: No data received!');
   }
   res.status(204).end();
 })
@@ -274,19 +278,25 @@ models.Person.hasMany(models.Blobs);
 models.Person.hasMany(models.Nucleos);
 */
 
+
+
 server.listen(app.get('port'), function() {
-    console.log('Node ELEZIONI-WS start! porta: ' + ENV.server_port);
-    console.log('action_url_produzione:',ENV_ELEZIONI.action_url_produzione);
-    console.log('action_url_test      :',ENV_ELEZIONI.action_url_test);
-    console.log('REST_url_produzione  :',ENV_ELEZIONI.rest_url_produzione);
-    console.log('REST_url_test        :',ENV_ELEZIONI.rest_url_test);
+  
+
+    log.info('Node ELEZIONI-WS start! porta: ' + ENV.server_port);
+    log.info('action_url_produzione:'+ ENV_ELEZIONI.action_url_produzione);
+    log.info('action_url_test      :'+ ENV_ELEZIONI.action_url_test);
+    log.info('REST_url_produzione  :'+ ENV_ELEZIONI.rest_url_produzione);
+    log.info('REST_url_test        :'+ ENV_ELEZIONI.rest_url_test);
     /*
     console.log('REST_url_produzione:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/produzione');
     console.log('REST_url_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/batch/test');
     console.log('HTTP_GET_test:','http://' + ENV.hostname + ':' + ENV.server_port +  '/elezioni/test');
     */
-    console.log('LOG CONSOLE:','http://' + ENV.hostname + ':' + ENV.server_port +  ''); 
-    console.log('KIBANA:','http://10.10.128.79:5601/app/kibana');
+    log.info('LOG CONSOLE          :http://' + ENV.hostname + ':' + ENV.server_port +  ''); 
+    log.info('KIBANA               :http://10.10.128.79:5601/app/kibana');
+    log.info({msg : 'LOG INFO   OBJECT DEMO ', desc: 'START', num : 100});
+    log.error({msg : 'LOG ERROR OBJECT DEMO ', desc: 'START', num : 100});
 
 });
 
